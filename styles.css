@@ -1,0 +1,74 @@
+@font-face {
+    font-family: 'alarm-clock';
+    src: url('internal/alarm\ clock.ttf');
+}
+
+@font-face {
+  font-family: 'lemon-milk';
+  src: url('internal/LEMONMILK-Regular.otf');
+}
+  
+body {
+  margin: 0;
+  background-color: rgb(126, 71, 126);
+  text-align: center;
+  height: 100vh;
+}
+
+.background-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+h1, .link, button {
+  font-size: 13px;
+  font-family: 'lemon-milk';
+  translate: 0px -250px;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+  color: white;
+  translate: 0px -260px;
+}
+  
+#clock, input {
+  display: flex;
+  justify-content: center;
+  font-family: 'alarm-clock';
+  color: red;
+  translate: 0px -240px;
+}
+span {
+  translate: 0px -237px;
+  font-size: 50px;
+}
+
+#hours,#minutes,#seconds {  
+  border: none;
+  background: none;
+  font-size: 65px;
+}
+
+button {
+  translate: 75px -625px;
+  border: none;
+  background: none;
+  color: transparent;
+  cursor: pointer;
+}
+
+
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+
+  

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>PomoShuzo</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="icon" type="image/x-icon" href="internal/tmc-clock.ico">
+    </head>
+    <script src="timer.js"></script>
+
+    <body>
+        <audio id="click">
+            <source src="internal/click-button-166324.mp3" type="audio/mp3">
+        </audio>
+
+        <img src="internal/pixel-alarm-clock.png" alt="Background Image" class="background-image" id="clockImg">
+        
+        <h1>Pomodoro Timer</h1>
+        <a href="https://www.youtube.com/watch?v=tYzMYcUty6s" target="_blank" class="link"><p>Matsuoka Shuzo</p></a>
+    
+
+        <p id="clock">
+            <input type="text" id="hours" style="width: 74px;"> 
+            <span id="span1">:</span>
+            <input type="text" id="minutes" style="width: 74px;"> 
+            <span>:</span>
+            <input type="text" id="seconds" style="width: 74px;"> 
+        </p>
+
+        <button type="button" onclick="startCountdown();pressedImg('internal/alarm-clock-pressed.png');playClick();">start</button>
+
+        <script>
+            document.getElementById('hours').value=pad(0);
+            document.getElementById('minutes').value=pad(0);
+            document.getElementById('seconds').value=pad(0);
+        </script>
+    
+    </body>
+</html>
+
+<!--
+IDEAS:
+-have the lower part of the page without the timer hold image
+-menu to change study time and break time
+-each break period, display a somewhat random poem from some source
+-->
