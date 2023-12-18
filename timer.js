@@ -75,7 +75,9 @@ function pressedImg(a) {
 }
 
 function playClick() {
-    document.getElementById('click').play();
+    let click = document.getElementById('click');
+    click.volume=.1;
+    click.play();
 }
 
 

@@ -11,56 +11,96 @@
 body {
   margin: 0;
   background-color: rgb(126, 71, 126);
-  text-align: center;
   height: 100vh;
+  display: grid;
+  position: relative;
+  font-size: 8px;
+  font-family: 'lemon-milk';
+}
+
+h1 {
+  position: absolute;
+  left: 10px;
 }
 
 .background-image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto; 
+  position: absolute;
+  place-self: center;
 }
 
-h1, .link, button {
-  font-size: 13px;
-  font-family: 'lemon-milk';
-  translate: 0px -250px;
+#clock {
+  position: absolute;
+  place-self: center;
+}
+
+#clock input {
+  border: transparent;
+  background-color: transparent;
+  font-family: 'alarm-clock';
+  color:red;
+  font-size: 50px;
+  width: 62px;
+  margin-bottom: 159px;
+}
+
+#clock span {
+  display: inline-block;
+  color: red;
+  font-size: 30px;
+  translate: -3px -10px;
 }
 
 .link {
-  display: flex;
-  justify-content: center;
+  position: absolute;
+  top: 30px;
+  left: 10px;
   font-size: 10px;
-  color: white;
-  translate: 0px -260px;
-}
-  
-#clock, input {
-  display: flex;
-  justify-content: center;
-  font-family: 'alarm-clock';
-  color: red;
-  translate: 0px -240px;
-}
-span {
-  translate: 0px -237px;
-  font-size: 50px;
-}
-
-#hours,#minutes,#seconds {  
-  border: none;
-  background: none;
-  font-size: 65px;
+  color: black;
 }
 
 button {
-  translate: 75px -625px;
-  border: none;
-  background: none;
-  color: transparent;
-  cursor: pointer;
+  position: absolute;
+  place-self: center;
+  width: 53px;
+  height: 13px;
+  font-size: 7px;
+  border-radius: 0;
+  color: white;
 }
 
+#study {
+  translate: -87px -27px;
+  p {
+    margin-top: -1px;
+  }
+  background: transparent;
+}
+
+#break {
+  translate: -7px -27px;
+  p {
+    margin-top: -1px;
+  }
+  background: transparent;
+}
+
+#reset {
+  translate: 74px -27px;
+  p {
+    margin-top: -1px;
+  }
+  background: transparent;
+}
+
+#startpause {
+  translate: 76px -156px;
+  font-size: 0px;
+  width: 37px;
+  height: 10px;
+  border: transparent;
+  background: transparent;
+  cursor: pointer;
+}
 
 
 input:focus,
