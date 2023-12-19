@@ -8,46 +8,51 @@
         <link rel="stylesheet" href="styles.css">
         <link rel="icon" type="image/x-icon" href="internal/tmc-clock.ico">
     </head>
-    <script src="timer.js"></script>
-
     <body>
+
+        <button class = "accordion">MENU</button>
+        <div class = "panel">
+            <button class = "studyTime">Set Study Time</button>
+        </div>    
+
         <audio id="click">
             <source src="internal/click-button-166324.mp3" type="audio/mp3">
         </audio>
-
-        <img src="internal/pixel-alarm-clock.png" alt="Background Image" class="background-image" id="clockImg">
-        
         <h1>Pomodoro Timer</h1>
         <a href="https://www.youtube.com/watch?v=tYzMYcUty6s" target="_blank" class="link"><p>never give up</p></a>
-    
+
+        <img src="internal/pixel-alarm-clock.png" alt="Background Image" class="background-image" id="clockImg">
+                  
         <div id="clock">
-            <input type="text" id="hours"> 
+            <input type="text" id="hours" pattern="[0-9]\d*"> 
             <span>:</span>
             <input type="text" id="minutes"> 
             <span>:</span>
             <input type="text" id="seconds"> 
         </div>
+        <script src="timer.js"></script>
 
-    
-        <button type="button" id="startpause" onclick="startCountdown();pressedImg('internal/alarm-clock-pressed.png');playClick();">start</button>
-
-        <button type="button" id="study" onclick="playClick();startCountdown();"><p>study</p></button>
-        
-        <button type="button" id="break" onclick="playClick();startCountdown();"><p>break</p></button>
-
-        <button type="button" id= "reset" onclick="playClick();resetCountdown();"><p>reset</p></button>
+     
         <script>
             document.getElementById('hours').value=pad(0);
             document.getElementById('minutes').value=pad(0);
             document.getElementById('seconds').value=pad(0);
         </script>
-    
+
+        <button type="button" id="startpause" onclick="startCountdown();pressedImg('internal/alarm-clock-pressed.png');playClick();">start</button>
+
+        <button type="button" class="mode" id="study" onclick="setStudy(); playClick(); "><p>study</p></button>
+        
+        <button type="button" class="mode" id="break" onclick="setBreak(); playClick();"><p>break</p></button>
+
+        <button type="button" id= "reset" onclick="playClick(); reset();"><p>reset</p></button>
+       
+
     </body>
 </html>
 
 <!--
 IDEAS:
--have the lower part of the page without the timer hold image
 -menu to change study time and break time
 -each break period, display a somewhat random poem from some source
 -->

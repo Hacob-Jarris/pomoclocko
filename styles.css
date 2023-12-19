@@ -18,6 +18,36 @@ body {
   font-family: 'lemon-milk';
 }
 
+.accordion {
+  position: absolute;
+  font-family: 'lemon-milk';
+  font-size: 12px;
+  cursor: pointer;
+  transition: .4s;
+  color: black;
+  top: 20px;
+  right: 25px;
+  height: 1.8em;
+  width: 3.8em;
+  scale: 1.2;
+  border: transparent;
+  background-color: rgb(139, 24, 139);
+  z-index: 99;
+}
+
+.accordion:hover {
+  background-color: rgb(78, 5, 78);
+}
+
+.panel {
+  position: relative;
+  display: none;
+  overflow: hidden;
+  z-index: 1; 
+  top: 50px;
+  right: 2px;
+}
+
 h1 {
   position: absolute;
   left: 10px;
@@ -26,11 +56,13 @@ h1 {
 .background-image {
   position: absolute;
   place-self: center;
+  scale: 1.8;
 }
 
 #clock {
   position: absolute;
   place-self: center;
+  scale: 1.8;
 }
 
 #clock input {
@@ -59,44 +91,62 @@ h1 {
 }
 
 button {
+  scale: 1.8;
   position: absolute;
   place-self: center;
   width: 53px;
   height: 13px;
   font-size: 7px;
-  border-radius: 0;
+  border-radius: 3%;
+  border-color:rgb(124, 124, 124);
   color: white;
+  cursor: pointer;
 }
 
 #study {
-  translate: -87px -27px;
+  translate: -152px -47px;
   p {
     margin-top: -1px;
   }
-  background: transparent;
+  background-color: black;
+
+}
+
+#study.clicked {
+  background-color: rgb(68, 19, 19);
+}
+
+#break.clicked {
+  background-color: rgb(68, 19, 19);
 }
 
 #break {
-  translate: -7px -27px;
+  translate: -13px -47px;
   p {
     margin-top: -1px;
   }
-  background: transparent;
+
+  background-color: transparent;
 }
 
 #reset {
-  translate: 74px -27px;
+  translate: 134px -47px;
   p {
     margin-top: -1px;
   }
-  background: transparent;
+
+  background-color: transparent;
+}
+
+#reset:active {
+  background-color: rgb(68, 19, 19)
 }
 
 #startpause {
-  translate: 76px -156px;
+  translate: 136px -281px;
   font-size: 0px;
   width: 37px;
-  height: 10px;
+  height: 11px;
   border: transparent;
   background: transparent;
   cursor: pointer;
