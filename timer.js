@@ -3,60 +3,73 @@ let i = 0;
 
 //declare global variables
 let breakHours;
-let breakMinutes;
+let breakMinutes = document.getElementById("breakMin");
 let breakSeconds;
 
 let studyHours;
-let studyMinutes;
+let studyMinutes = document.getElementById("studyMin");
 let studySeconds;
 
 function startCountdown(mode) { //Hours, minutes, seconds, break boolean, study boolean
-    i++;
 
-    let hoursInput;
-    let minutesInput;
-    let secondsInput;
     
-    //Checks mode and whether some time is set
-    if (mode === 'break') { //Break mode
-        hoursInput = breakHours;
-        minutesInput = breakMinutes;
-        secondsInput = breakSeconds;
-        //NEED TO DISPLAY MODE SOMEHOW
-    }else if (mode === 'study') { //Study mode
-        hoursInput = studyHours;
-        minutesInput = studyMinutes;
-        secondsInput = studySeconds;
 
-        console.log(hoursInput, studyMinutes, studySeconds);
-        //NEED TO DISPLAY MODE SOMEHOW
-    }else { //basic timer functionality
-        hoursInput = document.getElementById('hours');
-        minutesInput = document.getElementById('minutes');
-        secondsInput = document.getElementById('seconds');
+    let hours;
+    let minutes;
+    let seconds;
+
+    let hoursInput = document.getElementById('hours');
+    let minutesInput = document.getElementById('minutes');
+    let secondsInput = document.getElementById('seconds');
+    if (countdown) {
+        clearInterval(countdown);
     }
 
-    //Change time from string to int
-    let hours = parseInt(hoursInput.value, 10);
-    let minutes = parseInt(minutesInput.value, 10);
-    let seconds = parseInt(secondsInput.value, 10);
+    //Checks mode and whether some time is set
+            //NEED TO DISPLAY MODE SOMEHOW
 
-    //Convert time to seconds
+    if (mode === 'break') { //Break mode
+        hours = 0;
+        minutes = breakMinutes;
+        seconds = 0;
+    }else if (mode === 'study') { //Study mode
+        hours = 0;
+        minutes = studyMinutes.value;
+        seconds = 0;
+    } else {
+        i++;
+    }
+
+    //account for unnacceptable input
+    if (isNaN(hours) || hours < 0) {hours = 0;}
+
+    if (isNaN(minutes) || minutes < 0) {minutes = 0;}
+
+    if (isNaN(seconds) || seconds < 0) {seconds = 0;}
+    
+    //change time from string to int if set inside clock
+    if (typeof mode === 'undefined') {
+        hours = parseInt(hoursInput.value, 10);
+        minutes = parseInt(minutesInput.value, 10);
+        seconds = parseInt(secondsInput.value, 10);    
+    }
+
+    //convert time to seconds
     let totalSeconds = hours * 3600 + minutes * 60 + seconds;
 
-    //Decrement and display time each second
+    //decrement and display time each second
     countdown = setInterval(function() {
         if (i%2 == 0) { return; } //For start/pause toggle
         
-        //Convert back to hours, minutes, seconds
-        const hours = Math.floor(totalSeconds /3600);
-        const minutes = Math.floor((totalSeconds % 3600) /60);
+        //convert back to hours, minutes, seconds for displaying
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
         
         //Display time in text boxes
-        hoursInput.value = pad(hours);
-        minutesInput.value = pad(minutes);
-        secondsInput.value = pad(seconds);
+        document.getElementById('hours').value = pad(hours);
+        document.getElementById('minutes').value = pad(minutes);
+        document.getElementById('seconds').value = pad(seconds);
 
         //Decrement seconds
         if (totalSeconds != 0) { totalSeconds--; }
@@ -66,19 +79,10 @@ function startCountdown(mode) { //Hours, minutes, seconds, break boolean, study 
 }
 
 function setBreak() {
-    breakHours = document.getElementById('hours');
-    breakMinutes = document.getElementById('minutes');
-    breakSeconds = document.getElementById('seconds');
-
-    startCountdown('break');
+       startCountdown('break');
 }
 
 function setStudy() {
-    studyHours = document.getElementById('hours');
-    console.log(studyHours);
-    studyMinutes = document.getElementById('minutes');
-    studySeconds = document.getElementById('seconds');
-
     startCountdown('study');
 }
 
@@ -143,6 +147,8 @@ function handleWheelEvent(event) {
   inputElement.value = pad(newValue);
 }
 
+
+//accordion menu functionality
 let acc = document.getElementsByClassName("accordion");
 let j;
 

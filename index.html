@@ -12,8 +12,12 @@
 
         <button class = "accordion">MENU</button>
         <div class = "panel">
-            <button class = "studyTime">Set Study Time</button>
-        </div>    
+            
+            <span>study time: </span><input type="number" id = "studyMin" class = "studyTime"><span> min</span>
+            <span><br><br>break time: </span><input type="number" id = "breakMin" class = "studyTime"><span> min</span>
+        </div>
+    
+           
 
         <audio id="click">
             <source src="internal/click-button-166324.mp3" type="audio/mp3">
@@ -24,7 +28,7 @@
         <img src="internal/pixel-alarm-clock.png" alt="Background Image" class="background-image" id="clockImg">
                   
         <div id="clock">
-            <input type="text" id="hours" pattern="[0-9]\d*"> 
+            <input type="text" id="hours"> 
             <span>:</span>
             <input type="text" id="minutes"> 
             <span>:</span>

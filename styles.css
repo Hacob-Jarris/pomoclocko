@@ -31,21 +31,35 @@ body {
   width: 3.8em;
   scale: 1.2;
   border: transparent;
-  background-color: rgb(139, 24, 139);
+  background-color: rgb(189, 87, 189);
   z-index: 99;
+  border-radius: 4px;
 }
 
 .accordion:hover {
-  background-color: rgb(78, 5, 78);
+  background-color: rgb(221, 133, 221);
+  border-radius: 6px;
 }
 
 .panel {
-  position: relative;
+  position: absolute;
   display: none;
   overflow: hidden;
   z-index: 1; 
   top: 50px;
-  right: 2px;
+  right: 18px;
+  font-size: 12px;
+  background-color: rgb(189, 87, 189);
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.studyTime {
+  width: 35px;
+  border: transparent;
+  border-radius: 4px;
+  background-color: white;
+
 }
 
 h1 {
