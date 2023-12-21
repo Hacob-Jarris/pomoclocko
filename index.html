@@ -6,57 +6,49 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styles.css">
-        <link rel="icon" type="image/x-icon" href="internal/tmc-clock.ico">
+        <link rel="icon" type="image/x-icon" href="internal/mc-clock.ico">
     </head>
     <body>
 
         <button class = "accordion">MENU</button>
         <div class = "panel">
-            
-            <span>study time: </span><input type="number" id = "studyMin" class = "studyTime"><span> min</span>
-            <span><br><br>break time: </span><input type="number" id = "breakMin" class = "studyTime"><span> min</span>
+            <span>study time: </span><input type="number" id = "studyMin" class = "pomodoro"><span> min</span>
+            <span><br>break time: </span><input type="number" id = "breakMin" class = "pomodoro"><span> min<br></span>
+            <span><button type = "button" id ="help">help</button></span>
+            <list id="helpText"><h3>Pomodoro Timer:</h3>
+                <li>Set time with above text boxes</li>
+                <li>Click study / break to display time</li>
+                <li>Start / pause with the top button</li>
+                <h3>Normal Timer:</h3>
+                <li>Set time in clock with scroll wheel or by typing</li>
+                <li>Press top button to start / pause</li>
+            </list>
         </div>
-    
-           
 
-        <audio id="click">
-            <source src="internal/click-button-166324.mp3" type="audio/mp3">
-        </audio>
         <h1>Pomodoro Timer</h1>
         <a href="https://www.youtube.com/watch?v=tYzMYcUty6s" target="_blank" class="link"><p>never give up</p></a>
 
         <img src="internal/pixel-alarm-clock.png" alt="Background Image" class="background-image" id="clockImg">
                   
         <div id="clock">
-            <input type="text" id="hours"> 
+            <input type="number" id="hours" min="0" max="60"> 
             <span>:</span>
-            <input type="text" id="minutes"> 
+            <input type="number" id="minutes" min="0" max="60"> 
             <span>:</span>
-            <input type="text" id="seconds"> 
+            <input type="number" id="seconds" min="0" max="60"> 
         </div>
-        <script src="timer.js"></script>
-
-     
-        <script>
-            document.getElementById('hours').value=pad(0);
-            document.getElementById('minutes').value=pad(0);
-            document.getElementById('seconds').value=pad(0);
-        </script>
 
         <button type="button" id="startpause" onclick="startCountdown();pressedImg('internal/alarm-clock-pressed.png');playClick();">start</button>
-
-        <button type="button" class="mode" id="study" onclick="setStudy(); playClick(); "><p>study</p></button>
         
-        <button type="button" class="mode" id="break" onclick="setBreak(); playClick();"><p>break</p></button>
-
-        <button type="button" id= "reset" onclick="playClick(); reset();"><p>reset</p></button>
+            <button type="button" class="mode" id="study" onclick="setStudy(); playClick(); ">study</button>
+            <button type="button" class="mode" id="break" onclick="setBreak(); playClick();">break</button>
+            <button type="button" id= "reset" onclick="playClick(); reset();">reset</button>
+        
+        
+        <audio id="click"><source src="internal/click-button-166324.mp3" type="audio/mp3"></audio>
+        <audio id="alarm"><source src="internal/-169440.mp3" type="audio/mp3"></audio>
        
-
+        <script src="timer.js"></script>
     </body>
 </html>
 
-<!--
-IDEAS:
--menu to change study time and break time
--each break period, display a somewhat random poem from some source
--->

@@ -13,8 +13,7 @@ body {
   background-color: rgb(126, 71, 126);
   height: 100vh;
   display: grid;
-  position: relative;
-  font-size: 8px;
+  font-size: 10px;
   font-family: 'lemon-milk';
 }
 
@@ -43,23 +42,53 @@ body {
 
 .panel {
   position: absolute;
-  display: none;
-  overflow: hidden;
   z-index: 1; 
   top: 50px;
   right: 18px;
   font-size: 12px;
-  background-color: rgb(189, 87, 189);
-  padding: 15px;
+  background-color: rgb(221, 133, 221);
+  border: 4px solid rgb(189, 87, 189);
+  padding: 10px;
   border-radius: 15px;
+  width: 150px;
+  display: none;
 }
 
-.studyTime {
-  width: 35px;
+#help {
+  position: relative;
+  right: 18px;
+  width: 30px;
+  background-color: rgb(189, 87, 189);
+  color: black;
+  font-family: 'lemon-milk';
+  border: transparent;
+  border-radius: 4px;
+  margin-top: 15px;
+  margin-left: 50%;
+  margin-right: 50%;
+  margin-bottom: 15px;
+  padding-bottom: 3px;
+  transition: .8s;
+}
+
+#help:hover {
+  background-color: rgb(189, 87, 189);
+  border-radius: 9px;
+}
+
+#helpText { 
+  max-width: 100%;
+  font-size: 10px;
+  line-height: 1.8em;
+  display: none;
+}
+
+.pomodoro {
+  width: 20px;
   border: transparent;
   border-radius: 4px;
   background-color: white;
-
+  margin: 5px;
 }
 
 h1 {
@@ -89,6 +118,16 @@ h1 {
   margin-bottom: 159px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  appearance:textfield;
+}
+
 #clock span {
   display: inline-block;
   color: red;
@@ -105,56 +144,36 @@ h1 {
 }
 
 button {
+  font-family:'Courier New', Courier, monospace;
   scale: 1.8;
   position: absolute;
   place-self: center;
   width: 53px;
   height: 13px;
   font-size: 7px;
-  border-radius: 3%;
-  border-color:rgb(124, 124, 124);
-  color: white;
+  text-shadow: aquamarine;
+  border-color:transparent;
+  color: silver;
   cursor: pointer;
+  background-color: transparent;
+}
+
+button:active {
+  background-color:rgb(68, 19, 19);
 }
 
 #study {
-  translate: -152px -47px;
-  p {
-    margin-top: -1px;
-  }
-  background-color: black;
-
-}
-
-#study.clicked {
-  background-color: rgb(68, 19, 19);
-}
-
-#break.clicked {
-  background-color: rgb(68, 19, 19);
+  translate: -155px -48px;
 }
 
 #break {
-  translate: -13px -47px;
-  p {
-    margin-top: -1px;
-  }
-
-  background-color: transparent;
+  translate: -13px -48px;
 }
 
 #reset {
-  translate: 134px -47px;
-  p {
-    margin-top: -1px;
-  }
-
-  background-color: transparent;
+  translate: 133px -48px;
 }
 
-#reset:active {
-  background-color: rgb(68, 19, 19)
-}
 
 #startpause {
   translate: 136px -281px;
@@ -165,7 +184,6 @@ button {
   background: transparent;
   cursor: pointer;
 }
-
 
 input:focus,
 select:focus,

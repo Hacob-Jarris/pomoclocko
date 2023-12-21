@@ -1,77 +1,82 @@
 let countdown;
-let i = 0;
+let minutes;
+let i = 1;
 
-//declare global variables
-let breakHours;
+//start with zero values initially
+document.getElementById('hours').value = pad(0);
+document.getElementById('minutes').value = pad(0);
+document.getElementById('seconds').value = pad(0);
+
 let breakMinutes = document.getElementById("breakMin");
-let breakSeconds;
-
-let studyHours;
 let studyMinutes = document.getElementById("studyMin");
-let studySeconds;
+function startCountdown() { //Hours, minutes, seconds, break boolean, study boolean
 
-function startCountdown(mode) { //Hours, minutes, seconds, break boolean, study boolean
-
-    
-
-    let hours;
-    let minutes;
-    let seconds;
-
-    let hoursInput = document.getElementById('hours');
-    let minutesInput = document.getElementById('minutes');
-    let secondsInput = document.getElementById('seconds');
+    alarm.pause();
+    //clear previous countdown
     if (countdown) {
         clearInterval(countdown);
     }
 
-    //Checks mode and whether some time is set
-            //NEED TO DISPLAY MODE SOMEHOW
 
-    if (mode === 'break') { //Break mode
-        hours = 0;
-        minutes = breakMinutes;
-        seconds = 0;
-    }else if (mode === 'study') { //Study mode
-        hours = 0;
-        minutes = studyMinutes.value;
-        seconds = 0;
-    } else {
-        i++;
-    }
+    //declare local time variables
+    let hours = 0;
+    let seconds = 0;
+
+    //Checks mode and whether some time is set
+    //NEED TO DISPLAY MODE SOMEHOW
 
     //account for unnacceptable input
     if (isNaN(hours) || hours < 0) {hours = 0;}
-
     if (isNaN(minutes) || minutes < 0) {minutes = 0;}
-
     if (isNaN(seconds) || seconds < 0) {seconds = 0;}
-    
-    //change time from string to int if set inside clock
-    if (typeof mode === 'undefined') {
-        hours = parseInt(hoursInput.value, 10);
-        minutes = parseInt(minutesInput.value, 10);
-        seconds = parseInt(secondsInput.value, 10);    
-    }
 
+    //Get values from timer text boxes, attempt to change string to integer
+    hours = parseInt (document.getElementById('hours').value, 10);
+    minutes = parseInt (document.getElementById('minutes').value, 10);
+    seconds = parseInt (document.getElementById('seconds').value, 10);
+    console.log(hours, minutes, seconds);
+
+    i++;
+        
     //convert time to seconds
     let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    console.log(totalSeconds);
 
-    //decrement and display time each second
+    //for startpause button
+    let pause = false;
+    if (i%2 == 0 && countdown) {
+        pause = true;
+    }
+
+    let first = true;
+    //decrement and display time each second using setInterval()
     countdown = setInterval(function() {
-        if (i%2 == 0) { return; } //For start/pause toggle
+
+        if (first && totalSeconds == 0) {
+            playAlarm();
+            setTimeout(function() {
+                alert("time's up");
+                alarm.pause();
+            }, 4000); 
+            first = false;
+        }
+        
+        if (pause) {
+            return; 
+        }
         
         //convert back to hours, minutes, seconds for displaying
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
+    
         
-        //Display time in text boxes
+        //display time in text boxes
         document.getElementById('hours').value = pad(hours);
         document.getElementById('minutes').value = pad(minutes);
         document.getElementById('seconds').value = pad(seconds);
 
-        //Decrement seconds
+        //decrement seconds
         if (totalSeconds != 0) { totalSeconds--; }
 
     }, 1000);//1 second delay
@@ -79,11 +84,25 @@ function startCountdown(mode) { //Hours, minutes, seconds, break boolean, study 
 }
 
 function setBreak() {
-       startCountdown('break');
+    i++;
+    minutes = breakMinutes.value;
+    if (countdown) { clearInterval(countdown); }
+
+    //display break time
+    document.getElementById('hours').value = pad(0);
+    document.getElementById('minutes').value = pad(minutes);
+    document.getElementById('seconds').value = pad(0);
 }
 
 function setStudy() {
-    startCountdown('study');
+    i++;
+    minutes = studyMinutes.value;
+    if (countdown) { clearInterval(countdown); }
+
+    //display study time
+    document.getElementById('hours').value = pad(0);
+    document.getElementById('minutes').value = pad(minutes);
+    document.getElementById('seconds').value = pad(0);   
 }
 
 function reset() {
@@ -113,16 +132,28 @@ function pressedImg(a) {
 
 function playClick() {
     let click = document.getElementById('click');
-    click.volume=.1;
+    click.volume=.03;
     click.play();
 }
+
+function playAlarm() {
+    let alarm = new Audio('internal/-169440.mp3');
+    alarm.volume = .03;
+    alarm.play();
+}
+
+
+
+
 /*
 function changeColor(clickedButton) {
     let button = document.querySelectorAll('.mode');
 
     button.forEach(function(button)) {
-    clickedButton.classList.add("clicked");
-}*/
+        clickedButton.classList.add("clicked");
+    }
+}
+*/
 
 //getting time and adding event listeners
 let hoursInputElement = document.getElementById('hours');
@@ -148,7 +179,7 @@ function handleWheelEvent(event) {
 }
 
 
-//accordion menu functionality
+//accordion menu
 let acc = document.getElementsByClassName("accordion");
 let j;
 
@@ -165,3 +196,16 @@ for (j = 0; j < acc.length; j++) {
         }
     });
 }
+
+//help button
+document.getElementById("help").addEventListener("click", function() {
+    let helpText = document.getElementById("helpText");
+    helpText.style.display = (helpText.style.display === 'none' || helpText.style.display === '')  ? 'block' : 'none';
+});
+
+let helpButton = document.getElementById("help");
+let helpText = document.getElementById("helpText");
+
+helpButton.addEventListener("click", function() {
+    helpText.classList.toggle('visible');
+});
