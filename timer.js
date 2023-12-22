@@ -142,19 +142,6 @@ function playAlarm() {
     alarm.play();
 }
 
-
-
-
-/*
-function changeColor(clickedButton) {
-    let button = document.querySelectorAll('.mode');
-
-    button.forEach(function(button)) {
-        clickedButton.classList.add("clicked");
-    }
-}
-*/
-
 //getting time and adding event listeners
 let hoursInputElement = document.getElementById('hours');
 let minutesInputElement = document.getElementById('minutes');
