@@ -1,4 +1,4 @@
-<h1>Pomo-Shuzo</h1>
+<h1>Pomoclocko</h1>
 
 Simple pomodoro timer with digital alarm clock theme.
 
