@@ -1,7 +1,6 @@
 let countdown;
 let minutes;
 let i = 1;
-
 //start with zero values initially
 document.getElementById('hours').value = pad(0);
 document.getElementById('minutes').value = pad(0);
@@ -49,38 +48,38 @@ function startCountdown() { //Hours, minutes, seconds, break boolean, study bool
     }
 
     let first = true;
+    if (totalSeconds != 0) {
     //decrement and display time each second using setInterval()
-    countdown = setInterval(function() {
+        countdown = setInterval(function() {
 
-        if (first && totalSeconds == 0) {
-            playAlarm();
-            setTimeout(function() {
-                alert("time's up");
-                alarm.pause();
-            }, 4000); 
-            first = false;
-        }
+            if (first && totalSeconds == 0) {
+                playAlarm();
+                setTimeout(function() {
+                    alert("time's up");
+                    alarm.pause();
+                }, 4000); 
+                first = false;
+            }
+            
+            if (pause) { return; }
+            
+            //convert back to hours, minutes, seconds for displaying
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
         
-        if (pause) {
-            return; 
-        }
-        
-        //convert back to hours, minutes, seconds for displaying
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
-    
-        
-        //display time in text boxes
-        document.getElementById('hours').value = pad(hours);
-        document.getElementById('minutes').value = pad(minutes);
-        document.getElementById('seconds').value = pad(seconds);
+            
+            //display time in text boxes
+            document.getElementById('hours').value = pad(hours);
+            document.getElementById('minutes').value = pad(minutes);
+            document.getElementById('seconds').value = pad(seconds);
 
-        //decrement seconds
-        if (totalSeconds != 0) { totalSeconds--; }
+            //decrement seconds
+            if (totalSeconds != 0) { totalSeconds--; }
 
-    }, 1000);//1 second delay
+        }, 1000);//1 second delay
 
+    }
 }
 
 function setBreak() {
