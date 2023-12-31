@@ -5,7 +5,7 @@
         <title>PomoShuzo</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/x-icon" href="internal/mc-clock.ico">
+        <link rel="icon" type="image/x-icon" href="assets/images/mc-clock.ico">
         <link rel="stylesheet" href="styles.css">
         <script defer src="timer.js"></script>
     </head>
@@ -29,7 +29,7 @@
             </list>
         </div>
         <div class="clock">
-            <img src="internal/clock2.png" alt="clock image" id="background-image">
+            <img src="assets/images/clock2.png" alt="clock image" id="background-image">
             <div class="clock-input">           
                 <input type="number" id="hours" min="0" max="60"> 
                 <span>:</span>
@@ -45,11 +45,11 @@
                 <button type="button" id= "reset" onclick="playClick(); reset();">reset</button>   
             </div>
 
-            <button type="button" id="startpause" onclick="startCountdown(); pressedImg('internal/pressed.png'); playClick();">start</button>
+            <button type="button" id="startpause" onclick="startCountdown(); pressedImg('assets/images/pressed.png'); playClick();">start</button>
 
             <!--sound effects-->
-            <audio id="click"><source src="internal/click-button-166324.mp3" type="audio/mp3"></audio>
-            <audio id="alarm"><source src="internal/-169440.mp3" type="audio/mp3"></audio>
+            <audio id="click"><source src="assets/sounds/click-button-166324.mp3" type="audio/mp3"></audio>
+            <audio id="alarm"><source src="assets/sounds/-169440.mp3" type="audio/mp3"></audio>
         </div>
     </body>
 </html>

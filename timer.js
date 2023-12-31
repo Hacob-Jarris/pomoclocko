@@ -125,7 +125,7 @@ function pad(value) {
 function pressedImg(a) {
     document.getElementById('background-image').src = a;
     setTimeout(function() {
-        document.getElementById('background-image').src = "internal/clock2.png";
+        document.getElementById('background-image').src = "assets/images/clock2.png";
     }, 300);
 }
 
@@ -136,7 +136,7 @@ function playClick() {
 }
 
 function playAlarm() {
-    let alarm = new Audio('internal/-169440.mp3');
+    let alarm = new Audio('assets/sounds/-169440.mp3');
     alarm.volume = .03;
     alarm.play();
 }

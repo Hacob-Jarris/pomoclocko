@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'alarm-clock';
-    src: url('internal/alarm\ clock.ttf');
+    src: url('assets/fonts/alarm\ clock.ttf');
 }
 
 @font-face {
   font-family: 'lemon-milk';
-  src: url('internal/LEMONMILK-Regular.otf');
+  src: url('assets/fonts/LEMONMILK-Regular.otf');
 }
   
 body {
