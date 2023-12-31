@@ -7,6 +7,11 @@
   font-family: 'lemon-milk';
   src: url('assets/fonts/LEMONMILK-Regular.otf');
 }
+
+@font-face {
+  font-family: 'square';
+  src: url('assets/fonts/Square.ttf');
+}
   
 body {
   margin: 0;
@@ -177,13 +182,14 @@ input[type=number] {
 }
 
 .clock-buttons button {
+  font-family: 'square';
   font-size: 1rem;
   border: transparent;
   color: silver;
   cursor: pointer;
   background-color: transparent;
   padding: 1px 25px;
-  margin-right: 40px;
+  margin-right: 31px;
 }
 
 button:active {
