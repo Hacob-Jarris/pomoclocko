@@ -4,5 +4,6 @@
 https://bocsir.github.io/pomoclocko/
 <hr>
 
-![image](https://github.com/bocsir/Pomoclocko/assets/77936915/17e66846-70ad-4ddc-a231-091773393fbc)
+![image](https://github.com/bocsir/pomoclocko/assets/77936915/3b63d4c0-14a4-43f6-9b1c-72144e709fb2)
+
 
