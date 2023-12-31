@@ -125,7 +125,7 @@ function pad(value) {
 function pressedImg(a) {
     document.getElementById('background-image').src = a;
     setTimeout(function() {
-        document.getElementById('background-image').src = "internal/pixel-alarm-clock.png";
+        document.getElementById('background-image').src = "internal/clock2.png";
     }, 300);
 }
 
