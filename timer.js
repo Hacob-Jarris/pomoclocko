@@ -123,7 +123,6 @@ function pad(value) {
     return value < 10 ? '0' + value : value;
 }
 
-let initialBreakSeconds = 0;
 let initialWorkingSeconds = 0;
 
 
@@ -137,15 +136,13 @@ function pressed(a) {
     //save inital break or study time or pause if countdown is running
     if (breaking) {
         breaking = false; 
-        initialBreakSeconds = getSeconds();
-        console.log(initialBreakSeconds);
         if (pause) { pause = false; }
-    }else if (studying){
+    } else if (studying){
         studying = false;
         initialWorkingSeconds = getSeconds();
         console.log(initialWorkingSeconds);
         if (pause) { pause = false; }
-    }else {
+    } else {
         if (!pause) {
             pause = true;
         } else {
@@ -155,7 +152,11 @@ function pressed(a) {
 
     
 }
-//------------------------------------------------------------------------------------
+
+function setSession() {
+
+}
+
 function playClick() {
     let click = document.getElementById('click');
     click.volume=.03;
