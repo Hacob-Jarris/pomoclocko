@@ -1,6 +1,6 @@
 let countdown;
 let minutes;
-let i = 1;
+
 let breaking = false;
 let studying = false;
 let pause = false;
@@ -11,8 +11,6 @@ document.getElementById('seconds').value = pad(0);
 
 let breakMinutes = document.getElementById("breakMin");
 let studyMinutes = document.getElementById("studyMin");
-
-
 
 function getSeconds() {
     let hours = 0;
@@ -32,7 +30,9 @@ function getSeconds() {
     return hours * 3600 + minutes * 60 + seconds;
 }
 
+let functionRunning = false;
 function startCountdown() { //Hours, minutes, seconds, break boolean, study boolean
+    functionRunning = true;
     //stop alarm sound
     alarm.pause();
 
@@ -81,6 +81,7 @@ function startCountdown() { //Hours, minutes, seconds, break boolean, study bool
 
     }
 }
+functionRunning = false;
 
 function setBreak() {
     breaking = true;
@@ -125,7 +126,6 @@ function pad(value) {
 
 let initialWorkingSeconds = 0;
 
-
 function pressed(a) {
     //change to pressed image
     document.getElementById('background-image').src = a;
@@ -143,13 +143,13 @@ function pressed(a) {
         console.log(initialWorkingSeconds);
         if (pause) { pause = false; }
     } else {
-        if (!pause) {
+        if (!pause && functionRunning) {
             pause = true;
         } else {
             pause = false;
         }
     }
-
+    startCountdown();
     
 }
 
