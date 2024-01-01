@@ -1,51 +1,48 @@
 let countdown;
 let minutes;
 let i = 1;
-//start with zero values initially
+let breaking = false;
+let studying = false;
+let pause = false;
+//start with zero values
 document.getElementById('hours').value = pad(0);
 document.getElementById('minutes').value = pad(0);
 document.getElementById('seconds').value = pad(0);
 
 let breakMinutes = document.getElementById("breakMin");
 let studyMinutes = document.getElementById("studyMin");
-function startCountdown() { //Hours, minutes, seconds, break boolean, study boolean
-
-    alarm.pause();
-    //clear previous countdown
-    if (countdown) {
-        clearInterval(countdown);
-    }
 
 
-    //declare local time variables
+
+function getSeconds() {
     let hours = 0;
     let seconds = 0;
-
-    //Checks mode and whether some time is set
-    //NEED TO DISPLAY MODE SOMEHOW
 
     //account for unnacceptable input
     if (isNaN(hours) || hours < 0) {hours = 0;}
     if (isNaN(minutes) || minutes < 0) {minutes = 0;}
     if (isNaN(seconds) || seconds < 0) {seconds = 0;}
 
-    //Get values from timer text boxes, attempt to change string to integer
+    //get values from timer text boxes, change string to integer
     hours = parseInt (document.getElementById('hours').value, 10);
     minutes = parseInt (document.getElementById('minutes').value, 10);
     seconds = parseInt (document.getElementById('seconds').value, 10);
-    console.log(hours, minutes, seconds);
+ 
+    //convert to seconds
+    return hours * 3600 + minutes * 60 + seconds;
+}
 
-    i++;
-        
-    //convert time to seconds
-    let totalSeconds = hours * 3600 + minutes * 60 + seconds;
-    console.log(totalSeconds);
+function startCountdown() { //Hours, minutes, seconds, break boolean, study boolean
+    //stop alarm sound
+    alarm.pause();
 
-    //for startpause button
-    let pause = false;
-    if (i%2 == 0 && countdown) {
-        pause = true;
+    //clear previous countdown
+    if (countdown) {
+        clearInterval(countdown);
     }
+
+    let totalSeconds = getSeconds();
+    console.log(totalSeconds);
 
     let first = true;
     if (totalSeconds != 0) {
@@ -61,7 +58,10 @@ function startCountdown() { //Hours, minutes, seconds, break boolean, study bool
                 first = false;
             }
             
-            if (pause) { return; }
+            if (pause) { 
+                console.log("pause"); 
+                clearInterval(countdown); 
+            }
             
             //convert back to hours, minutes, seconds for displaying
             const hours = Math.floor(totalSeconds / 3600);
@@ -83,7 +83,8 @@ function startCountdown() { //Hours, minutes, seconds, break boolean, study bool
 }
 
 function setBreak() {
-    i++;
+    breaking = true;
+
     minutes = breakMinutes.value;
     if (countdown) { clearInterval(countdown); }
 
@@ -94,7 +95,7 @@ function setBreak() {
 }
 
 function setStudy() {
-    i++;
+    studying = true;
     minutes = studyMinutes.value;
     if (countdown) { clearInterval(countdown); }
 
@@ -122,13 +123,39 @@ function pad(value) {
     return value < 10 ? '0' + value : value;
 }
 
-function pressedImg(a) {
+let initialBreakSeconds = 0;
+let initialWorkingSeconds = 0;
+
+
+function pressed(a) {
+    //change to pressed image
     document.getElementById('background-image').src = a;
     setTimeout(function() {
         document.getElementById('background-image').src = "assets/images/clock2.png";
     }, 300);
-}
 
+    //save inital break or study time or pause if countdown is running
+    if (breaking) {
+        breaking = false; 
+        initialBreakSeconds = getSeconds();
+        console.log(initialBreakSeconds);
+        if (pause) { pause = false; }
+    }else if (studying){
+        studying = false;
+        initialWorkingSeconds = getSeconds();
+        console.log(initialWorkingSeconds);
+        if (pause) { pause = false; }
+    }else {
+        if (!pause) {
+            pause = true;
+        } else {
+            pause = false;
+        }
+    }
+
+    
+}
+//------------------------------------------------------------------------------------
 function playClick() {
     let click = document.getElementById('click');
     click.volume=.03;
@@ -154,12 +181,10 @@ secondsInputElement.addEventListener("wheel", handleWheelEvent);
 function handleWheelEvent(event) {
   event.preventDefault();
 
-  let inputElement = event.currentTarget;
-
-  //change numeric value with scroll in +y direction
-  let delta = -Math.sign(event.deltaY);
-  let currentValue = parseFloat(inputElement.value) || 0;
-  let newValue = currentValue + delta;
+  const inputElement = event.currentTarget;
+  const delta = -Math.sign(event.deltaY);
+  const currentValue = parseFloat(inputElement.value) || 0;
+  const newValue = currentValue + delta;
 
   inputElement.value = pad(newValue);
 }
