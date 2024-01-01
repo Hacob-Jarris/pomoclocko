@@ -92,6 +92,7 @@ h1 {
   font-size: 10px;
   line-height: 1.8em;
   display: none;
+  list-style: none;
 }
 
 .menu-input input {
