@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>PomoShuzo</title>
+        <title>PomoClocko</title>
         <meta name="viewport" charset ="utf-8" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link rel="icon" type="image/x-icon" href="assets/images/mc-clock.ico">
         <link rel="stylesheet" href="styles.css">
@@ -50,6 +50,41 @@
             <audio id="click"><source src="assets/sounds/click-button-166324.mp3" type="audio/mp3"></audio>
             <audio id="alarm"><source src="assets/sounds/-169440.mp3" type="audio/mp3"></audio>
         </div>
+
+        <div class="login-form" >
+            <form action="/submit-login" method="post"> <!--sends login info to action url with method post-->
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username"><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password"><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        
+        <!--Firebase SDK-->
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+              apiKey: "AIzaSyDRh9xsD28lcqbKySQGMUg8r4-7ohdyUDI",
+              authDomain: "pomoclocko.firebaseapp.com",
+              projectId: "pomoclocko",
+              storageBucket: "pomoclocko.appspot.com",
+              messagingSenderId: "972146150409",
+              appId: "1:972146150409:web:cd76d766fd58089f397cd8",
+              measurementId: "G-RQJ57FHF74"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+          </script>
     </body>
 </html>
 

@@ -1,3 +1,22 @@
+//LOGIN
+document.querySelector('login-form').addEventListener('submit', function(e) {
+    //prevent refresh on submit
+    e.preventDefault();
+
+    //get username and password
+    let username = document.getElementById("username").value;  
+    let password = document.getElementById("password").value;
+
+    //check that username and password arent empty
+    if (!username || !password) {
+        alert("Username or password missing.");
+        return;
+    }
+});
+
+localStorage.setItem('username', username);
+localStorage.setItem('password', password);
+
 let countdown;
 let minutes;
 
