@@ -12,10 +12,16 @@
   font-family: 'square';
   src: url('assets/fonts/Square.ttf');
 }
+
+:root {
+  --red: rgb(174, 7, 7);
+  --brown: rgb(48, 33, 14);
+}
   
 body {
+  color: white;
   margin: 0;
-  background-color: rgb(36, 70, 21);
+  background-color: rgb(73, 71, 71);
   box-sizing: border-box;
   font-family: 'lemon-milk';
   overflow: hidden;
@@ -23,13 +29,13 @@ body {
 
 /*logo, menu*/
 h1 {
-  background-color: rgb(221, 133, 221);
-  border: 4px solid rgb(189, 87, 189);
+  background-color: var(--red);
+  border: 4px solid var(--brown);
   border-radius: 12px;
   font-size: 2rem;
   margin: 20px;
   width: max-content;
-  padding: 5px;
+  padding: 10px;
 }
 
 .accordion {
@@ -38,31 +44,35 @@ h1 {
   font-size: 13px;
   cursor: pointer;
   transition: .4s;
-  color: black;
-  top: 20px;
+  color: white;
+  top: 30px;
   right: 25px;
+  margin-right: 10px;
   height: 1.8em;
   width: 3.8em;
-  scale: 1.2;
+  scale: 1.5;
   border: transparent;
-  background-color: rgb(189, 87, 189);
+  background-color: var(--brown);
   z-index: 99;
   border-radius: 4px;
 }
 
 .accordion:hover {
-  background-color: rgb(221, 133, 221);
-  border-radius: 6px;
+  border-radius: .5rem;
+}
+
+.accordion:active {
+  background: var(--red);
 }
 
 .menu {
   position: absolute;
   z-index: 1; 
-  top: 50px;
+  top: 70px;
   right: 18px;
   font-size: 12px;
-  background-color: rgb(221, 133, 221);
-  border: 4px solid rgb(189, 87, 189);
+  background-color: var(--red);
+  border: 4px solid var(--brown);
   padding: 10px;
   border-radius: 15px;
   width: 150px;
@@ -71,8 +81,8 @@ h1 {
 }
 
 #help {
-  background-color: rgb(189, 87, 189);
-  color: black;
+  background-color: var(--brown);
+  color: white;
   font-family: 'lemon-milk';
   border: transparent;
   border-radius: 4px;
@@ -82,7 +92,7 @@ h1 {
 }
 
 #help:hover {
-  background-color: rgb(189, 87, 189);
+  background-color: var(--brown);
   border-radius: 9px;
 }
 
