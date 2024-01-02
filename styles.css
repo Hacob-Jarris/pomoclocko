@@ -43,7 +43,7 @@ h1 {
   z-index: 1; 
   top: 70px;
   right: 18px;
-  font-size: .5em;
+  font-size: .7em;
   background-color: var(--red);
   border: 4px solid var(--brown);
   padding: 10px;
@@ -53,22 +53,20 @@ h1 {
 }
 
 .menuButton {
+  z-index: 1;
+  padding: 5px;
   position: absolute;
   font-family: 'lemon-milk';
-  font-size: 13px;
+  font-size: 1rem;
+  padding: .5rem;
   cursor: pointer;
   transition: .4s;
   color: white;
   top: 30px;
-  right: 25px;
-  margin-right: 10px;
-  height: 1.8em;
-  width: 3.8em;
-  scale: 1.5;
+  right: 35px;
   border: transparent;
   background-color: var(--brown);
-  z-index: 99;
-  border-radius: 4px;
+  border-radius: .2rem;
 }
 
 .menuButton:hover {
@@ -141,6 +139,8 @@ input[type=number] {
 }
 
 .clock-input {
+  margin-right: 0;
+  margin-left: 0;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -149,16 +149,22 @@ input[type=number] {
 }
 
 .clock-input input {
+  margin-right: 0;
+  margin-left: 0;
+
   z-index: 1;
   border: none;
   background-color: transparent;
   font-family: 'alarm-clock';
   color:red;
   font-size: 6.5rem;
-  width: 7.5rem;
+  width: 7.2rem;
 }
 
 .clock-input span {
+  margin-right: 0;
+  margin-left: 0;
+
   font-size: 7rem;
   padding-bottom: 1.5rem;
   font-family: 'alarm-clock';
@@ -204,7 +210,7 @@ input[type=number] {
 }
 
 /*only show clock and menu at small height*/
-@media (max-height: 500px) or (max-width: 485px) {
+@media (max-height: 550px) or (max-width: 485px) {
   h1 {
     display:none;
   }
