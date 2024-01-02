@@ -53,7 +53,7 @@ h1 {
 }
 
 .menuButton {
-  z-index: 1;
+  z-index: 9;
   padding: 5px;
   position: absolute;
   font-family: 'lemon-milk';
@@ -135,12 +135,9 @@ input[type=number] {
   position: relative;
   width: 1200px;
   height: 600px;
-  transform: translate(3px, 0);
 }
 
 .clock-input {
-  margin-right: 0;
-  margin-left: 0;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -149,9 +146,7 @@ input[type=number] {
 }
 
 .clock-input input {
-  margin-right: 0;
-  margin-left: 0;
-
+  padding: 0;
   z-index: 1;
   border: none;
   background-color: transparent;
@@ -162,9 +157,6 @@ input[type=number] {
 }
 
 .clock-input span {
-  margin-right: 0;
-  margin-left: 0;
-
   font-size: 7rem;
   padding-bottom: 1.5rem;
   font-family: 'alarm-clock';
@@ -193,13 +185,13 @@ input[type=number] {
 
 #startpause {
   position: absolute;
-  font-size: 0px;
-  border: transparent;
+  font-size: 0;
+  border: 2px solid white;
   background: transparent;
   cursor: pointer;
   width: 60px;
   height: 13px;
-  transform: translate(136px, -150px);
+  transform: translate(132px, -150px);
 }
 
 /*increase clock size when it gets too small*/
@@ -237,6 +229,10 @@ input[type=number] {
     font-size: 1rem;
   }
 
+  #startpause {
+    width: 100px;
+    height: 40px;
+  }
   
 }
 
@@ -256,6 +252,4 @@ input[type=number] {
   .clock {
     transform: scale(.25);
   }
-
-
 }
