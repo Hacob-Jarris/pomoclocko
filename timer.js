@@ -192,7 +192,7 @@ function handleWheelEvent(event) {
 
 
 //accordion menu
-let acc = document.getElementsByClassName("accordion");
+let acc = document.getElementsByClassName("menuButton");
 let j;
 
 for (j = 0; j < acc.length; j++) {
