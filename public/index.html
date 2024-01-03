@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/10.7.1/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/10.7.1/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js"></script>
+  </head>
+  <body>
+    <h1>Pomodoro Timer</h1>
+
+    <button class="login-button" onclick="googleLogin()">Login with Google</button>
+
+        <button class = "menu-button">MENU</button>        
+        <div class = "menu">
+            <div class="menu-input">
+                <span>study time: </span><input type="number" id = "studyMin" ><span> min.</span>
+                <span><br>break time: </span><input type="number" id = "breakMin"><span> min.<br></span>
+                <span><button type = "button" id ="help">help</button></span>    
+            </div>
+
+            <list id="helpText"><h3>Pomodoro Timer:</h3>
+                <li>Set time with above text boxes</li>
+                <li>Click study / break to display time</li>
+                <li>Start / pause with the top button</li>
+                <h3>Normal Timer:</h3>
+                <li>Set time in clock with scroll wheel or by typing</li>
+                <li>Press top button to start / pause</li>
+            </list>
+        </div>
+        <div class="clock">
+            <img src="assets/images/clock2.png" alt="clock image" id="background-image">
+            <div class="clock-input">           
+                <input type="number" id="hours" min="0" max="60"> 
+                <span>:</span>
+                <input type="number" id="minutes" min="0" max="60"> 
+                <span>:</span>
+                <input type="number" id="seconds" min="0" max="60"> 
+            </div>
+
+            <!--clock buttons-->
+            <div class="clock-buttons">
+                <button type="button" class="mode" id="study" onclick="setStudy(); playClick(); ">study</button>
+                <button type="button" class="mode" id="break" onclick="setBreak(); playClick();">break</button>
+                <button type="button" id= "reset" onclick="playClick(); reset();">reset</button>   
+            </div>
+
+            <button type="button" id="startpause" onclick="pressed('assets/images/pressed.png'); playClick();">start</button>
+
+            <!--sound effects-->
+            <audio id="click"><source src="assets/sounds/click-button-166324.mp3" type="audio/mp3"></audio>
+            <audio id="alarm"><source src="assets/sounds/-169440.mp3" type="audio/mp3"></audio>
+        </div>
+
+    </body>
+</html>
