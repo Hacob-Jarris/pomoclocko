@@ -1,38 +1,93 @@
 @font-face {
-    font-family: 'alarm-clock';
-    src: url('assets/fonts/alarm\ clock.ttf');
+  font-family: "alarm-clock";
+  src: url("assets/fonts/alarm clock.ttf");
 }
-
 @font-face {
-  font-family: 'lemon-milk';
-  src: url('assets/fonts/LEMONMILK-Regular.otf');
+  font-family: "lemon-milk";
+  src: url("assets/fonts/LEMONMILK-Regular.otf");
 }
-
 @font-face {
-  font-family: 'square';
-  src: url('assets/fonts/Square.ttf');
+  font-family: "square";
+  src: url("assets/fonts/Square.ttf");
 }
-
 :root {
   --red: rgb(174, 7, 7);
-  --brown: rgb(48, 33, 14);
+  --brown: rgb(30, 33, 14);
+  --grey-transparent: rgba(58, 53, 53, 0.857);
+  --grey: rgb(90, 90, 90);
 }
 
-.login-button {
-  position: relative;
-  background: var(--brown);
-  color: white;
+/* add background opacity difference */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
-  cursor: pointer;
 }
-  
+
 body {
   color: white;
+  background-color: rgb(51, 52, 51);
   margin: 0;
-  background-color: rgb(73, 71, 71);
   box-sizing: border-box;
-  font-family: 'lemon-milk';
+  font-family: "lemon-milk";
   overflow: hidden;
+}
+
+#login-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 1;
+  background-color: var(--grey-transparent);
+  width: max-content;
+  padding: 0 20px 20px 20px;
+  border-radius: 1em;
+  display: none;
+}
+
+#google-login {
+  position: relative;
+  z-index: 1;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  padding: 12px 16px 12px 42px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
+  color: #757575;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: 12px 11px;
+  cursor: pointer;
+}
+
+#google-login:hover {
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+#google-login:active {
+  background-color: #eeeeee;
+}
+
+#google-login:focus {
+  outline: none;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25), 0 0 0 3px #c8dafc;
+}
+
+#google-login:disabled {
+  filter: grayscale(100%);
+  background-color: #ebebeb;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
 }
 
 /*logo, menu*/
@@ -45,13 +100,14 @@ h1 {
   width: max-content;
   padding: 10px;
 }
-.menu {
+
+#menu {
   display: none;
   position: absolute;
-  z-index: 1; 
+  z-index: 1;
   top: 70px;
   right: 18px;
-  font-size: .7em;
+  font-size: 0.7em;
   background-color: var(--red);
   border: 4px solid var(--brown);
   padding: 10px;
@@ -60,49 +116,49 @@ h1 {
   text-align: center;
 }
 
-.menu-button {
+#menu-button {
   z-index: 1;
   padding: 5px;
   position: absolute;
-  font-family: 'lemon-milk';
+  font-family: "lemon-milk";
   font-size: 1rem;
-  padding: .5rem;
+  padding: 0.5rem;
   cursor: pointer;
-  transition: .4s;
+  transition: 0.4s;
   color: white;
   top: 30px;
   right: 35px;
   border: transparent;
   background-color: var(--brown);
-  border-radius: .2rem;
+  border-radius: 0.2rem;
 }
 
-.menu-button:hover {
-  border-radius: .5rem;
+#menu-button:hover {
+  border-radius: 0.5rem;
 }
 
-.menu-button:active {
+#menu-button:active {
   background: var(--red);
 }
 
-
-#help {
+.menu-content-button {
+  cursor: pointer;
   background-color: var(--brown);
   color: white;
-  font-family: 'lemon-milk';
+  font-family: "lemon-milk";
   border: transparent;
   border-radius: 4px;
   margin-top: 10px;
   padding: 5px;
-  transition: .3s;
+  transition: 0.3s;
 }
 
-#help:hover {
+.menu-content-button:hover {
   background-color: var(--brown);
   border-radius: 9px;
 }
 
-#helpText { 
+#help-text {
   text-align: left;
   max-width: 100%;
   font-size: 10px;
@@ -111,15 +167,15 @@ h1 {
   list-style: none;
 }
 
-.menu-input input {
+#menu-input input {
   width: 20px;
   border: transparent;
   border-radius: 4px;
   background-color: white;
   margin: 5px;
 }
-/*end logo, menu*/
 
+/*end logo, menu*/
 /*remove increment/decrement on num inputs*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -129,9 +185,10 @@ input::-webkit-inner-spin-button {
 
 /*remove increment/decrement on num inputs*/
 input[type=number] {
-  appearance:textfield;
+  appearance: textfield;
 }
-.clock {
+
+#clock {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,14 +196,14 @@ input[type=number] {
   transform: translate(0, -140px);
 }
 
-.clock img {
+#clock img {
   position: relative;
   width: 1200px;
   height: 600px;
   z-index: 0;
 }
 
-.clock-input {
+#clock-input {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -154,34 +211,34 @@ input[type=number] {
   transform: translate(0, -20px);
 }
 
-.clock-input input {
-  padding: .3rem;
+#clock-input input {
+  padding: 0.3rem;
   z-index: 1;
   border: none;
   background-color: transparent;
-  font-family: 'alarm-clock';
-  color:red;
+  font-family: "alarm-clock";
+  color: red;
   font-size: 6.5rem;
   width: 7.2rem;
 }
 
-.clock-input span {
+#clock-input span {
   font-size: 7rem;
   padding-bottom: 1.5rem;
-  font-family: 'alarm-clock';
+  font-family: "alarm-clock";
   color: red;
   display: inline-block;
   vertical-align: middle;
 }
 
-.clock-buttons {
+#clock-buttons {
   position: absolute;
   z-index: 1;
   transform: translate(14px, 90px);
 }
 
-.clock-buttons button {
-  font-family: 'square';
+#clock-buttons button {
+  font-family: "square";
   font-size: 1rem;
   border: transparent;
   color: silver;
@@ -204,27 +261,24 @@ input[type=number] {
 
 /*increase clock size when it gets too small*/
 @media (max-width: 600px) {
-  .clock {
-    transform: scale(.75) translate(0, -150px);
+  #clock {
+    transform: scale(0.75) translate(0, -150px);
   }
 }
-
 /*only show clock and menu at small height*/
 @media (max-height: 550px) or (max-width: 485px) {
   h1 {
-    display:none;
+    display: none;
   }
-  .clock {
-    transform: scale(.75);
+  #clock {
+    transform: scale(0.75);
   }
 }
-
-@media (max-width: 415px){
-  .clock {
-    transform: scale(.5);
+@media (max-width: 415px) {
+  #clock {
+    transform: scale(0.5);
   }
-
-  .menu {
+  #menu {
     position: absolute;
     display: flex;
     margin: 0;
@@ -235,34 +289,30 @@ input[type=number] {
     border-radius: 0;
     text-align: left;
     font-size: 1rem;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
   }
-
   #startpause {
     width: 100px;
     height: 40px;
   }
-
-  .clock-buttons {
+  #clock-buttons {
     height: 39px;
   }
-  
 }
-
 @media (max-width: 395px) {
-  .clock-buttons {
+  #clock-buttons {
     display: inline-flex;
   }
 }
-
 @media (max-width: 300px) {
-  .clock {
-    transform: scale(.4);
+  #clock {
+    transform: scale(0.4);
+  }
+}
+@media (max-width: 200px) {
+  #clock {
+    transform: scale(0.25);
   }
 }
 
-@media (max-width: 200px) {
-  .clock {
-    transform: scale(.25);
-  }
-}
+/*# sourceMappingURL=styles.css.map */

@@ -23,22 +23,26 @@
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <link rel="stylesheet" href="styles.css">
-    <script src="app.js"></script>
+    <script defer src="app.js"></script>
   </head>
   <body>
     <h1>Pomodoro Timer</h1>
 
-    <button class="login-button" onclick="googleLogin()">Login with Google</button>
-
-        <button class = "menu-button">MENU</button>        
-        <div class = "menu">
-            <div class="menu-input">
+    <div id="login-menu">
+        <h2>Login</h2>
+        <button id="google-login" onclick="googleLogin()">Login with Google</button>
+        <button id="submit" onclick="submitLogin()">Submit</button>
+    </div> 
+        <button id="menu-button" onclick="openMenu()">MENU</button>        
+        <div id="menu">
+            <div id="menu-input">
                 <span>study time: </span><input type="number" id = "studyMin" ><span> min.</span>
                 <span><br>break time: </span><input type="number" id = "breakMin"><span> min.<br></span>
-                <span><button type = "button" id ="help">help</button></span>    
+                <button type = "button" onclick="openLogin()" class ="menu-content-button">login</button><br>
+                <button type = "button" onclick="openHelp()" class ="menu-content-button">help</button>   
             </div>
 
-            <list id="helpText"><h3>Pomodoro Timer:</h3>
+            <list id="help-text"><h3>Pomodoro Timer:</h3>
                 <li>Set time with above text boxes</li>
                 <li>Click study / break to display time</li>
                 <li>Start / pause with the top button</li>
@@ -47,9 +51,9 @@
                 <li>Press top button to start / pause</li>
             </list>
         </div>
-        <div class="clock">
+        <div id="clock">
             <img src="assets/images/clock2.png" alt="clock image" id="background-image">
-            <div class="clock-input">           
+            <div id="clock-input">           
                 <input type="number" id="hours" min="0" max="60"> 
                 <span>:</span>
                 <input type="number" id="minutes" min="0" max="60"> 
@@ -58,10 +62,10 @@
             </div>
 
             <!--clock buttons-->
-            <div class="clock-buttons">
-                <button type="button" class="mode" id="study" onclick="setStudy(); playClick(); ">study</button>
-                <button type="button" class="mode" id="break" onclick="setBreak(); playClick();">break</button>
-                <button type="button" id= "reset" onclick="playClick(); reset();">reset</button>   
+            <div id="clock-buttons">
+                <button type="button" id="study" onclick="setStudy(); playClick(); ">study</button>
+                <button type="button"  id="break" onclick="setBreak(); playClick();">break</button>
+                <button type="button" id="reset" onclick="playClick(); reset();">reset</button>   
             </div>
 
             <button type="button" id="startpause" onclick="pressed('assets/images/pressed.png'); playClick();">start</button>
@@ -70,6 +74,5 @@
             <audio id="click"><source src="assets/sounds/click-button-166324.mp3" type="audio/mp3"></audio>
             <audio id="alarm"><source src="assets/sounds/-169440.mp3" type="audio/mp3"></audio>
         </div>
-
     </body>
 </html>

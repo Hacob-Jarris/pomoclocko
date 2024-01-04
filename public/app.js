@@ -7,13 +7,16 @@ document.addEventListener("DOMContentLoaded", event => {
     //firebase credentials
     const app = firebase.app();
 
-    // document.getElementsByClassName('login-button').display
+    document.getElementById('google-login').display
 });
 
+//google login
 function googleLogin() {
+    //google auth provider
     const provider = new firebase.auth.GoogleAuthProvider();
     
     firebase.auth().signInWithPopup(provider)
+    //when singed in...
     .then(result => {
         const user = result.user;
         document.write(`Hello ${user.displayName}`);
@@ -204,34 +207,38 @@ function handleWheelEvent(event) {
 }
 
 
-//accordion menu
-let acc = document.getElementsByClassName("menu-button");
-let j;
+//menu button
+function openMenu() {
+    let panel = document.getElementById("menu");
+    toggleOpen(panel);
+};
 
-for (j = 0; j < acc.length; j++) {
-    acc[j].addEventListener("click", function() {
-        this.classList.toggle("active");
-
-        let panel = this.nextElementSibling;
-
-        //toggle menu
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
-        }
-    });
-}
+//login button
+function openLogin() {
+    let loginMenu = document.getElementById("login-menu");
+    toggleOpen(loginMenu);
+};
 
 //help button
-document.getElementById("help").addEventListener("click", function() {
-    let helpText = document.getElementById("helpText");
-    helpText.style.display = (helpText.style.display === 'none' || helpText.style.display === '')  ? 'block' : 'none';
-});
+function openHelp() {
+    let helpText = document.getElementById("help-text");
+    toggleOpen(helpText);
+};
 
-let helpButton = document.getElementById("help");
-let helpText = document.getElementById("helpText");
+//open what button opens if not open already
+function toggleOpen(a) {
+    if (a.style.display === "block") {
+        a.style.display = "none";
+    } else {
+        a.style.display = "block";
+    }
+};
 
-helpButton.addEventListener("click", function() {
-    helpText.classList.toggle('visible');
-});
+//login submit button 
+function submitLogin() {
+    let loginMenu = document.getElementById("login-menu");
+    loginMenu.style.display = "none";
+
+    //save stuff ......l
+
+}
