@@ -10,13 +10,13 @@
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/10.7.1/firebase-auth-compat.js"></script>
     <script defer src="/__/firebase/10.7.1/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/10.7.1/firebase-firestore-compat.js"></script>
+    <!-- <script defer src="/__/firebase/10.7.1/firebase-firestore-compat.js"></script>
     <script defer src="/__/firebase/10.7.1/firebase-functions-compat.js"></script>
     <script defer src="/__/firebase/10.7.1/firebase-messaging-compat.js"></script>
     <script defer src="/__/firebase/10.7.1/firebase-storage-compat.js"></script>
     <script defer src="/__/firebase/10.7.1/firebase-analytics-compat.js"></script>
     <script defer src="/__/firebase/10.7.1/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/10.7.1/firebase-performance-compat.js"></script>
+    <script defer src="/__/firebase/10.7.1/firebase-performance-compat.js"></script> -->
     <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
@@ -26,12 +26,32 @@
     <script defer src="app.js"></script>
   </head>
   <body>
-    <h1>Pomodoro Timer</h1>
+    <a href="index.html" id="title">Pomodoro Timer</a>
 
     <div id="login-menu">
-        <h2>Login</h2>
-        <button id="google-login" onclick="googleLogin()">Login with Google</button>
-        <button id="submit" onclick="submitLogin()">Submit</button>
+        <h2>Login / Sign Up</h2>
+        <button id="exit">
+            <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            stroke-width="3" 
+            stroke-linecap="round" 
+            stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+        </button>
+        <label for="email">Email:</label>
+        <input type="email" id="email" minlength="6">
+        <label for="username">Password:</label>
+        <input type="text" id="password" minlength="6">
+        <button id="submit" class="menu-button" onclick="emailLogin()">Submit</button>
+
+        <button id="google-login" onclick="googleLogin()">Login with Google</button><br>
     </div> 
         <button id="menu-button" onclick="openMenu()">MENU</button>        
         <div id="menu">
@@ -42,13 +62,14 @@
                 <button type = "button" onclick="openHelp()" class ="menu-content-button">help</button>   
             </div>
 
-            <list id="help-text"><h3>Pomodoro Timer:</h3>
+            <list id="help-text">
+                <br>
+                <li>Start / pause with the top button</li>
+                <h3>Pomodoro Timer:</h3>
                 <li>Set time with above text boxes</li>
                 <li>Click study / break to display time</li>
-                <li>Start / pause with the top button</li>
                 <h3>Normal Timer:</h3>
                 <li>Set time in clock with scroll wheel or by typing</li>
-                <li>Press top button to start / pause</li>
             </list>
         </div>
         <div id="clock">

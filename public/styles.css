@@ -10,31 +10,39 @@
   font-family: "square";
   src: url("assets/fonts/Square.ttf");
 }
+@font-face {
+  font-family: "open-sans";
+  src: url("assets/fonts/OpenSans-Regular.ttf");
+}
+
 :root {
   --red: rgb(174, 7, 7);
   --brown: rgb(30, 33, 14);
-  --grey-transparent: rgba(58, 53, 53, 0.857);
+  --red-transparent: rgba(60, 11, 11, 0.911);
   --grey: rgb(90, 90, 90);
 }
 
-/* add background opacity difference */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+html {
+  display: flex;
+  align-items: stretch;
+  
 }
 
 body {
+  min-height: 100vh;
+  min-width: 100vw;
   color: white;
   background-color: rgb(51, 52, 51);
   margin: 0;
   box-sizing: border-box;
   font-family: "lemon-milk";
   overflow: hidden;
+}
+
+input {
+  caret-color: var(--red);
+  font-weight: 500;
+  font-family: "open-sans";
 }
 
 #login-menu {
@@ -44,11 +52,70 @@ body {
   transform: translate(-50%, -50%);
   z-index: 1;
   opacity: 1;
-  background-color: var(--grey-transparent);
+  background-color: var(--red);
+  border: 4px solid var(--brown);
   width: max-content;
-  padding: 0 20px 20px 20px;
+  padding-bottom: 0;
   border-radius: 1em;
   display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px;
+  font-family: "open-sans";
+}
+
+#login-menu h2 {
+  font-family: "lemon-milk";
+}
+
+#login-menu *:not(input, #google-login) {
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+
+#login-menu #exit {
+  position: absolute;
+  background: transparent;
+  border: transparent;
+  color: white;
+  right: 5px;
+  top: 0;
+  transform: translate(0, -10px);
+  cursor: pointer;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(90deg);
+  }
+}
+
+#exit:hover svg {
+  scale: 1.2;
+  animation: spin .1s linear;
+}
+
+#login-menu #submit {
+  margin: 15px;
+  top: auto;
+  right: auto;
+  bottom: 0;
+  font-family: "lemon-milk";
+  background-color: var(--brown);
+  color: white;
+  border: transparent;
+  border-radius: .2em;
+  padding: .4em;
+  align-self: center;
+  cursor: pointer;
+  transition: border-radius .5s;
+}
+
+#login-menu #submit:hover {
+  border-radius: .6em;
 }
 
 #google-login {
@@ -58,40 +125,24 @@ body {
   padding: 12px 16px 12px 42px;
   border: none;
   border-radius: 3px;
-  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
-  color: #757575;
-  font-size: 14px;
+  color: black;
+  font-size: .8rem;
   font-weight: 500;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
-  background-color: white;
   background-repeat: no-repeat;
+  background-color: white;
   background-position: 12px 11px;
   cursor: pointer;
 }
 
-#google-login:hover {
-  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-#google-login:active {
-  background-color: #eeeeee;
-}
-
-#google-login:focus {
-  outline: none;
-  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25), 0 0 0 3px #c8dafc;
-}
-
-#google-login:disabled {
-  filter: grayscale(100%);
-  background-color: #ebebeb;
-  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
-  cursor: not-allowed;
-}
-
 /*logo, menu*/
-h1 {
+#title {
+  position: absolute;
+  z-index: 1;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
   background-color: var(--red);
   border: 4px solid var(--brown);
   border-radius: 12px;
@@ -99,14 +150,19 @@ h1 {
   margin: 20px;
   width: max-content;
   padding: 10px;
+  transition: .4s;
+}
+
+#title:hover {
+  border-radius: 20px;
 }
 
 #menu {
   display: none;
   position: absolute;
   z-index: 1;
-  top: 70px;
-  right: 18px;
+  top: 80px;
+  right: 35px;
   font-size: 0.7em;
   background-color: var(--red);
   border: 4px solid var(--brown);
@@ -234,7 +290,7 @@ input[type=number] {
 #clock-buttons {
   position: absolute;
   z-index: 1;
-  transform: translate(14px, 90px);
+  transform: translate(12px, 89px);
 }
 
 #clock-buttons button {
@@ -245,7 +301,7 @@ input[type=number] {
   cursor: pointer;
   background-color: transparent;
   padding: 1px 25px;
-  margin-right: 35px;
+  margin-right: 30px;
 }
 
 #startpause {
@@ -278,7 +334,7 @@ input[type=number] {
   #clock {
     transform: scale(0.5);
   }
-  #menu {
+  /* #menu {
     position: absolute;
     display: flex;
     margin: 0;
@@ -290,7 +346,7 @@ input[type=number] {
     text-align: left;
     font-size: 1rem;
     border-radius: 0.5rem;
-  }
+  } */
   #startpause {
     width: 100px;
     height: 40px;

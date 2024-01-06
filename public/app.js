@@ -3,9 +3,25 @@ document.addEventListener("DOMContentLoaded", event => {
     document.getElementById('hours').value = '00';
     document.getElementById('minutes').value = '00';
     document.getElementById('seconds').value = '00';
+    
+    // import { initializeApp } from "firebase/app";
+    // import { getAnalytics } from "firebase/analytics";
+    //firebase configuration
+    // const firebaseConfig = {
+    //     apiKey: "AIzaSyDRh9xsD28lcqbKySQGMUg8r4-7ohdyUDI",
+    //     authDomain: "pomoclocko.firebaseapp.com",
+    //     databaseURL: "https://pomoclocko-default-rtdb.firebaseio.com",
+    //     projectId: "pomoclocko",
+    //     storageBucket: "pomoclocko.appspot.com",   
+    //     messagingSenderId: "972146150409",    
+    //     appId: "1:972146150409:web:cd76d766fd58089f397cd8",   
+    //     measurementId: "G-RQJ57FHF74"  
+    //   };
+      
 
-    //firebase credentials
-    const app = firebase.app();
+    // //initialize firebase
+    // const app = initializeApp(firebaseConfig);
+    // const analytics = getAnalytics(app);
 
     document.getElementById('google-login').display
 });
@@ -23,6 +39,11 @@ function googleLogin() {
         console.log(user)
     })
     .catch(console.log)
+}
+
+//email login
+function emailLogin() {
+
 }
 
 let countdown,minutes;
@@ -216,7 +237,12 @@ function openMenu() {
 //login button
 function openLogin() {
     let loginMenu = document.getElementById("login-menu");
-    toggleOpen(loginMenu);
+
+    if (loginMenu.style.display === "flex") {
+        loginMenu.style.display = "none";
+    } else {
+        loginMenu.style.display = "flex";
+    }
 };
 
 //help button
@@ -242,3 +268,9 @@ function submitLogin() {
     //save stuff ......l
 
 }
+
+//login close button 
+
+document.querySelector('#exit').addEventListener('click', () => {
+    document.getElementById("login-menu").style.display = "none";
+})
