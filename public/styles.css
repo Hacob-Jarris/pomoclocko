@@ -249,7 +249,7 @@ input[type=number] {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  transform: translate(0, -140px);
+  transform: translate(0, -10px);
 }
 
 #clock img {
@@ -323,7 +323,7 @@ input[type=number] {
 }
 /*only show clock and menu at small height*/
 @media (max-height: 550px) or (max-width: 485px) {
-  h1 {
+  #title {
     display: none;
   }
   #clock {
