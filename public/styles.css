@@ -45,7 +45,7 @@ input {
   font-family: "open-sans";
 }
 
-#login-menu {
+#auth-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -64,16 +64,16 @@ input {
   font-family: "open-sans";
 }
 
-#login-menu h2 {
+#auth-container h2 {
   font-family: "lemon-milk";
 }
 
-#login-menu *:not(input, #google-login) {
+#auth-container *:not(input, #google-login) {
   margin-top: 10px;
   margin-bottom: 2px;
 }
 
-#login-menu #exit {
+#auth-container #exit {
   position: absolute;
   background: transparent;
   border: transparent;
@@ -98,7 +98,7 @@ input {
   animation: spin .1s linear;
 }
 
-#login-menu #submit {
+#auth-container #submit {
   margin: 15px;
   top: auto;
   right: auto;
@@ -114,7 +114,7 @@ input {
   transition: border-radius .5s;
 }
 
-#login-menu #submit:hover {
+#auth-container #submit:hover {
   border-radius: .6em;
 }
 
@@ -370,5 +370,3 @@ input[type=number] {
     transform: scale(0.25);
   }
 }
-
-/*# sourceMappingURL=styles.css.map */

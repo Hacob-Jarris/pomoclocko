@@ -1,95 +1,114 @@
-document.addEventListener("DOMContentLoaded", event => {
-    //start with zero values
-    document.getElementById('hours').value = '00';
-    document.getElementById('minutes').value = '00';
-    document.getElementById('seconds').value = '00';
-    
-    // import { initializeApp } from "firebase/app";
-    // import { getAnalytics } from "firebase/analytics";
-    //firebase configuration
-    // const firebaseConfig = {
-    //     apiKey: "AIzaSyDRh9xsD28lcqbKySQGMUg8r4-7ohdyUDI",
-    //     authDomain: "pomoclocko.firebaseapp.com",
-    //     databaseURL: "https://pomoclocko-default-rtdb.firebaseio.com",
-    //     projectId: "pomoclocko",
-    //     storageBucket: "pomoclocko.appspot.com",   
-    //     messagingSenderId: "972146150409",    
-    //     appId: "1:972146150409:web:cd76d766fd58089f397cd8",   
-    //     measurementId: "G-RQJ57FHF74"  
-    //   };
-      
+//importing needed functions from respective software dev kit (SDK)
+//import { <service getter functions> } from "<content delivery network (CDN) URL>";
+import { initializeApp, getApps} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    // //initialize firebase
-    // const app = initializeApp(firebaseConfig);
-    // const analytics = getAnalytics(app);
+//firebase config for this web app (from firebase console)
+const config = {
+    apiKey: "AIzaSyDRh9xsD28lcqbKySQGMUg8r4-7ohdyUDI",
+    authDomain: "pomoclocko.firebaseapp.com",
+    databaseURL: "https://pomoclocko-default-rtdb.firebaseio.com",
+    projectId: "pomoclocko",
+    storageBucket: "pomoclocko.appspot.com",
+    messagingSenderId: "972146150409",
+    appId: "1:972146150409:web:c49966cc26e50a18397cd8",
+    measurementId: "G-QE9HYP56J8"
+};
 
-    document.getElementById('google-login').display
+//initializing firebase app instance
+let firebaseApp;
+if(!getApps().length) {
+    firebaseApp = initializeApp(config);
+}else {
+    firebaseApp = getApps();
+}
+
+//set auth and firestore objects to a variable
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+
+//get auth status of user
+onAuthStateChanged(auth, (user) => {
+    if(user != null) {
+        console.log('logged in as ' + user.email);
+    } else { 
+        console.log('not logged in');
+    }
 });
 
-//google login
-function googleLogin() {
-    //google auth provider
-    const provider = new firebase.auth.GoogleAuthProvider();
-    
-    firebase.auth().signInWithPopup(provider)
-    //when singed in...
-    .then(result => {
-        const user = result.user;
-        document.write(`Hello ${user.displayName}`);
-        console.log(user)
-    })
-    .catch(console.log)
-}
+//working google login
+let provider = new GoogleAuthProvider();
+document.getElementById('google-login').addEventListener('click', () => {
+    signInWithPopup(auth, provider)
+    .then(function(result) {
+        //google access token to access Google API.
+        let token = result.credential.accessToken;
+        //current user set to user object from promise resolution of signInWithPopup 
+        let user = result.user;
+        //stuff i might need to do with user later goes here-----------------------
+    //catch errors and alert user
+    }).catch(function(error) {
+        //firebase error codes to identify error
+        switch (error.code) {
+            case 'auth/popup-closed-by-user':
+                alert('The popup was closed by the user. Please try again.');
+                break;
+            case 'auth/popup-blocked':
+                alert('The popup was blocked by the browser. Please enable popups for this site.');
+                break;
+            default:
+                alert('An unknown error occurred. Please try again.');
+        }
+    });
+});
 
-//email login
-function emailLogin() {
+//begin with zero values in clock
+document.getElementById('hours').value = '00';
+document.getElementById('minutes').value = '00';
+document.getElementById('seconds').value = '00';
 
-}
-
-let countdown,minutes;
+//global variables
+let countdown, minutes;
 let breaking, studying, pause = false;
-
 let breakMinutes = document.getElementById("breakMin");
 let studyMinutes = document.getElementById("studyMin");
 
+//get total seconds from clock input boxes
 function getSeconds() {
-    let hours = 0;
-    let seconds = 0;
+    //get values from clock input boxes or zero if values are invalid
+    let hours = parseInt(document.getElementById('hours').value, 10) || 0;
+    let minutes = parseInt(document.getElementById('minutes').value, 10) || 0;
+    let seconds = parseInt(document.getElementById('seconds').value, 10) || 0;
 
-    //account for unnacceptable input
-    if (isNaN(hours) || hours < 0) {hours = 0;}
-    if (isNaN(minutes) || minutes < 0) {minutes = 0;}
-    if (isNaN(seconds) || seconds < 0) {seconds = 0;}
-
-    //get values from timer text boxes, change string to integer
-    hours = parseInt (document.getElementById('hours').value, 10);
-    minutes = parseInt (document.getElementById('minutes').value, 10);
-    seconds = parseInt (document.getElementById('seconds').value, 10);
- 
     //convert to seconds
     return hours * 3600 + minutes * 60 + seconds;
 }
 
-
+//for play/pause
 let functionRunning = false;
-function startCountdown() { //Hours, minutes, seconds, break boolean, study boolean
-    functionRunning = true;
-    //stop alarm sound
-    alarm.pause();
 
-    //clear previous countdown
+//start a countdown when the top button is clicked
+function startCountdown() { 
+    functionRunning = true;
+
+    //clear previous running countdown
     if (countdown) {
         clearInterval(countdown);
     }
 
+    //get current total seconds
     let totalSeconds = getSeconds();
     console.log(totalSeconds);
 
+    //????
     let first = true;
+    
     if (totalSeconds != 0) {
-    //decrement and display time each second using setInterval()
+        //decrement and display time each second using setInterval()
         countdown = setInterval(function() {
 
+            //play alarm for 4 seconds if time is up
             if (first && totalSeconds == 0) {
                 playAlarm();
                 setTimeout(function() {
@@ -99,18 +118,18 @@ function startCountdown() { //Hours, minutes, seconds, break boolean, study bool
                 first = false;
             }
             
+            //cancel countdown with clearInterval()
             if (pause) { 
                 console.log("pause"); 
                 clearInterval(countdown); 
             }
             
-            //convert back to hours, minutes, seconds for displaying
+            //convert seconds to hours, minutes, seconds for displaying
             const hours = Math.floor(totalSeconds / 3600);
             const minutes = Math.floor((totalSeconds % 3600) / 60);
             const seconds = totalSeconds % 60;
         
-            
-            //display time in text boxes
+            //display in text boxes
             document.getElementById('hours').value = pad(hours);
             document.getElementById('minutes').value = pad(minutes);
             document.getElementById('seconds').value = pad(seconds);
@@ -124,7 +143,8 @@ function startCountdown() { //Hours, minutes, seconds, break boolean, study bool
 }
 functionRunning = false;
 
-function setBreak() {
+//display inputted break time on break button press
+document.getElementById('break').addEventListener('click', () => {
     breaking = true;
 
     minutes = breakMinutes.value;
@@ -134,9 +154,11 @@ function setBreak() {
     document.getElementById('hours').value = pad(0);
     document.getElementById('minutes').value = pad(minutes);
     document.getElementById('seconds').value = pad(0);
-}
+   
+});
 
-function setStudy() {
+//display inputted study time on study button press
+document.getElementById('study').addEventListener('click', () => {
     studying = true;
     minutes = studyMinutes.value;
     if (countdown) { clearInterval(countdown); }
@@ -145,36 +167,39 @@ function setStudy() {
     document.getElementById('hours').value = pad(0);
     document.getElementById('minutes').value = pad(minutes);
     document.getElementById('seconds').value = pad(0);   
-}
+    
+});
 
-function reset() {
+//reset clock to zero and start countdown to clear running countdown
+document.getElementById('reset').addEventListener('click', () => {
     document.getElementById('hours').value = '00';
     document.getElementById('minutes').value = '00';
     document.getElementById('seconds').value = '00';
     startCountdown();
-}
+   
+});
 
-//returns a string to be displayed
+//return formatted string to be displayed
 function pad(value) {
-
-    //avoid - being displayed when scrolling to set
+    //avoid '-' being displayed when scrolling to set
     if (value < 1 && value !== 0) {
         return '00';
     }
-    //adds a zero if numer under 10
+    //add a zero before number under 10
     return value < 10 ? '0' + value : value;
 }
 
 let initialWorkingSeconds = 0;
-
-function pressed(a) {
-    //change to pressed image
-    document.getElementById('background-image').src = a;
+//start or pause the countdown when top button is clicked
+document.getElementById('startpause').addEventListener('click', () => {
+    //change to pressed button image for .3 seconds
+    document.getElementById('background-image').src = 'assets/images/pressed.png';
     setTimeout(function() {
         document.getElementById('background-image').src = "assets/images/clock2.png";
     }, 300);
 
     //save inital break or study time or pause if countdown is running
+    //ISSUE: doesn't play when pressed once if reset and values changed
     if (breaking) {
         breaking = false; 
         if (pause) { pause = false; }
@@ -192,25 +217,19 @@ function pressed(a) {
     }
     startCountdown();
     
-}
+});
 
-function playClick() {
-    let click = document.getElementById('click');
-    click.volume=.03;
-    click.play();
-}
-
+//play alarm
 function playAlarm() {
     let alarm = new Audio('assets/sounds/-169440.mp3');
     alarm.volume = .03;
     alarm.play();
 }
 
-//getting time and adding event listeners
-let hoursInputElement = document.getElementById('hours');
-let minutesInputElement = document.getElementById('minutes');
-let secondsInputElement = document.getElementById('seconds');
-
+//add event listeners to each text box for scrolling to change time
+const hoursInputElement = document.getElementById('hours');
+const minutesInputElement = document.getElementById('minutes');
+const secondsInputElement = document.getElementById('seconds');
 hoursInputElement.addEventListener("wheel", handleWheelEvent);
 minutesInputElement.addEventListener("wheel", handleWheelEvent);
 secondsInputElement.addEventListener("wheel", handleWheelEvent);
@@ -219,39 +238,40 @@ secondsInputElement.addEventListener("wheel", handleWheelEvent);
 function handleWheelEvent(event) {
   event.preventDefault();
 
+  //get current value of input element and change it by delta
   const inputElement = event.currentTarget;
   const delta = -Math.sign(event.deltaY);
   const currentValue = parseFloat(inputElement.value) || 0;
   const newValue = currentValue + delta;
 
+  //format and set new value with pad()
   inputElement.value = pad(newValue);
 }
 
-
-//menu button
-function openMenu() {
+//open menu on menu button press
+document.getElementById('menu-button').addEventListener('click', () => {
     let panel = document.getElementById("menu");
     toggleOpen(panel);
-};
+});
 
-//login button
-function openLogin() {
-    let loginMenu = document.getElementById("login-menu");
+//open login on login button press
+document.getElementById('login-button').addEventListener('click', () => {
+    let loginMenu = document.getElementById("auth-container");
 
     if (loginMenu.style.display === "flex") {
         loginMenu.style.display = "none";
     } else {
         loginMenu.style.display = "flex";
     }
-};
+});
 
 //help button
-function openHelp() {
+document.getElementById('help-button').addEventListener('click', () => {
     let helpText = document.getElementById("help-text");
-    toggleOpen(helpText);
-};
+    toggleOpen(helpText);    
+});
 
-//open what button opens if not open already
+//open whatever button opens if not open already
 function toggleOpen(a) {
     if (a.style.display === "block") {
         a.style.display = "none";
@@ -260,17 +280,7 @@ function toggleOpen(a) {
     }
 };
 
-//login submit button 
-function submitLogin() {
-    let loginMenu = document.getElementById("login-menu");
-    loginMenu.style.display = "none";
-
-    //save stuff ......l
-
-}
-
-//login close button 
-
+//login menu close (X) button 
 document.querySelector('#exit').addEventListener('click', () => {
-    document.getElementById("login-menu").style.display = "none";
-})
+    document.getElementById("auth-container").style.display = "none";
+});

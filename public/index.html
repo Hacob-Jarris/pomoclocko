@@ -3,32 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>pomoClocko</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/10.7.1/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/10.7.1/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/10.7.1/firebase-database-compat.js"></script>
-    <!-- <script defer src="/__/firebase/10.7.1/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/10.7.1/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/10.7.1/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/10.7.1/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/10.7.1/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/10.7.1/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/10.7.1/firebase-performance-compat.js"></script> -->
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="app.js"></script>
+
+    <script defer type="module" src="app.js"></script>
   </head>
   <body>
     <a href="index.html" id="title">Pomodoro Timer</a>
 
-    <div id="login-menu">
+    <div id="auth-container">
         <h2>Login / Sign Up</h2>
         <button id="exit">
             <svg 
@@ -49,17 +33,17 @@
         <input type="email" id="email" minlength="6">
         <label for="username">Password:</label>
         <input type="text" id="password" minlength="6">
-        <button id="submit" class="menu-button" onclick="emailLogin()">Submit</button>
+        <button id="submit" class="menu-button">Submit</button>
 
-        <button id="google-login" onclick="googleLogin()">Login with Google</button><br>
-    </div> 
-        <button id="menu-button" onclick="openMenu()">MENU</button>        
+        <button id="google-login">Login with Google</button><br>
+    </div>  
+        <button id="menu-button">MENU</button>        
         <div id="menu">
             <div id="menu-input">
                 <span>study time: </span><input type="number" id = "studyMin" ><span> min.</span>
                 <span><br>break time: </span><input type="number" id = "breakMin"><span> min.<br></span>
-                <button type = "button" onclick="openLogin()" class ="menu-content-button">login</button><br>
-                <button type = "button" onclick="openHelp()" class ="menu-content-button">help</button>   
+                <button type = "button" id="login-button" class ="menu-content-button">login</button><br>
+                <button type = "button" id="help-button" class ="menu-content-button">help</button>   
             </div>
 
             <list id="help-text">
@@ -84,12 +68,12 @@
 
             <!--clock buttons-->
             <div id="clock-buttons">
-                <button type="button" id="study" onclick="setStudy(); playClick(); ">study</button>
-                <button type="button"  id="break" onclick="setBreak(); playClick();">break</button>
-                <button type="button" id="reset" onclick="playClick(); reset();">reset</button>   
+                <button type="button" id="study">study</button>
+                <button type="button"  id="break">break</button>
+                <button type="button" id="reset">reset</button>   
             </div>
 
-            <button type="button" id="startpause" onclick="pressed('assets/images/pressed.png'); playClick();">start</button>
+            <button type="button" id="startpause">start</button>
 
             <!--sound effects-->
             <audio id="click"><source src="assets/sounds/click-button-166324.mp3" type="audio/mp3"></audio>
