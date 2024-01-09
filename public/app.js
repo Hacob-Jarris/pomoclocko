@@ -63,6 +63,44 @@ document.getElementById('google-login').addEventListener('click', () => {
     });
 });
 
+//need to setup register and login forms in html using <form> and a submit button with type="submit"
+
+// //register form
+// document.getElementById('register-form').addEventListener('submit', (event) => {
+//     event.preventDefault();
+
+//     const email = document.getElementById('reg-email').value;
+//     const password = document.getElementById('reg-password').value;
+   
+//     createUserWithEmailAndPassword(auth, email, password)
+//         .then((userCredential) => {
+//             //singed in
+//             let user = userCredential.user;
+//         })
+//         .catch((error) => {
+//             let errorCode = error.code;
+//             let errorMessage = error.message;
+//             console.log(errorCode, errorMessage);
+//         });
+// });
+
+// //email login form
+// document.getElementById('login-form').addEventListener('submit', function(e) {
+//     e.preventDefault();
+ 
+//     let email = document.getElementById('login-email').value;
+//     let password = document.getElementById('login-password').value;
+ 
+//     signInWithEmailAndPassword(auth, email, password)
+//         .then((userCredential) => {
+//             let user = userCredential.user;
+//         })
+//         .catch((error) => {
+//             let errorCode = error.code;
+//             let errorMessage = error.message;
+//         });
+//  });
+
 //begin with zero values in clock
 document.getElementById('hours').value = '00';
 document.getElementById('minutes').value = '00';
