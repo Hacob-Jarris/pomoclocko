@@ -59,13 +59,38 @@ input {
   border-radius: 1em;
   display: none;
   flex-direction: column;
-  justify-content: space-between;
   padding: 25px;
   font-family: "open-sans";
 }
 
+#login-form, #sign-up-form {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 #auth-container h2 {
   font-family: "lemon-milk";
+}
+
+#form-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+#login, #sign-up {
+  font-family: "lemon-milk";
+  background: var(--brown);
+  color: white;
+  border: transparent;
+  border-radius: .3em;
+  padding: .4em;
+  margin: 0 .5em;
+  cursor: pointer;
+}
+
+#login:hover, #sign-up:hover {
+  background-color: var(--red);
 }
 
 #auth-container *:not(input, #google-login) {
@@ -98,7 +123,7 @@ input {
   animation: spin .1s linear;
 }
 
-#auth-container #submit {
+.form-submit {
   margin: 15px;
   top: auto;
   right: auto;
@@ -114,7 +139,7 @@ input {
   transition: border-radius .5s;
 }
 
-#auth-container #submit:hover {
+.form-submit:hover {
   border-radius: .6em;
 }
 
@@ -133,6 +158,7 @@ input {
   background-color: white;
   background-position: 12px 11px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 /*logo, menu*/

@@ -66,40 +66,61 @@ document.getElementById('google-login').addEventListener('click', () => {
 //need to setup register and login forms in html using <form> and a submit button with type="submit"
 
 // //register form
-// document.getElementById('register-form').addEventListener('submit', (event) => {
-//     event.preventDefault();
+document.getElementById('sign-up-form').addEventListener('submit', (event) => {
+    event.preventDefault();
 
-//     const email = document.getElementById('reg-email').value;
-//     const password = document.getElementById('reg-password').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('reg-password').value;
    
-//     createUserWithEmailAndPassword(auth, email, password)
-//         .then((userCredential) => {
-//             //singed in
-//             let user = userCredential.user;
-//         })
-//         .catch((error) => {
-//             let errorCode = error.code;
-//             let errorMessage = error.message;
-//             console.log(errorCode, errorMessage);
-//         });
-// });
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            //singed in
+            let user = userCredential.user;
+        })
+        .catch((error) => {
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+        });
+});
 
 // //email login form
-// document.getElementById('login-form').addEventListener('submit', function(e) {
-//     e.preventDefault();
+document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
  
-//     let email = document.getElementById('login-email').value;
-//     let password = document.getElementById('login-password').value;
+    let email = document.getElementById('login-email').value;
+    let password = document.getElementById('login-password').value;
  
-//     signInWithEmailAndPassword(auth, email, password)
-//         .then((userCredential) => {
-//             let user = userCredential.user;
-//         })
-//         .catch((error) => {
-//             let errorCode = error.code;
-//             let errorMessage = error.message;
-//         });
-//  });
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            let user = userCredential.user;
+        })
+        .catch((error) => {
+            let errorCode = error.code;
+            let errorMessage = error.message;
+        });
+ });
+
+
+document.getElementById('login').addEventListener('click', () => {
+    //display login form, hide sign up form
+    document.getElementById('sign-up-form').style.display = 'none';
+    document.getElementById('login-form').style.display = 'flex';
+    document.getElementById('sign-up').style.background = 'none';
+    document.getElementById('login').style.background = 'rgb(30, 33, 1)';
+
+});
+
+document.getElementById('sign-up').addEventListener('click', () => {
+    //display sign-up form, hide login form
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('sign-up-form').style.display = 'flex';
+
+    document.getElementById('login').style.background = 'none';
+    document.getElementById('sign-up').style.background = 'rgb(30, 33, 1)';
+
+
+});
 
 //begin with zero values in clock
 document.getElementById('hours').value = '00';
@@ -294,7 +315,7 @@ document.getElementById('menu-button').addEventListener('click', () => {
 });
 
 //open login on login button press
-document.getElementById('login-button').addEventListener('click', () => {
+document.getElementById('login/sign-up').addEventListener('click', () => {
     let loginMenu = document.getElementById("auth-container");
 
     if (loginMenu.style.display === "flex") {
@@ -322,4 +343,7 @@ function toggleOpen(a) {
 //login menu close (X) button 
 document.querySelector('#exit').addEventListener('click', () => {
     document.getElementById("auth-container").style.display = "none";
+    document.getElementById('login-form').style.display = "none";
+    document.getElementById('sing-up-form').style.display = "none";
+
 });

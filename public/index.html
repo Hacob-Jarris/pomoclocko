@@ -14,7 +14,11 @@
     <a href="index.html" id="title">Pomodoro Timer</a>
 
     <div id="auth-container">
-        <h2>Login / Sign Up</h2>
+        <div id="form-buttons">
+            <button id="login">login</button>
+            <button id="sign-up">sign up</button>    
+        </div>
+        
         <button id="exit">
             <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -30,11 +34,22 @@
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
         </button>
-        <label for="email">Email:</label>
-        <input type="email" id="email" minlength="6">
-        <label for="username">Password:</label>
-        <input type="text" id="password" minlength="6">
-        <button id="submit" class="menu-button">Submit</button>
+
+        <form id="sign-up-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" minlength="6">
+            <label for="password">Password:</label>
+            <input type="password" id="password" minlength="6">
+            <button type="submit" class="form-submit">Submit</button>    
+        </form>
+
+        <form id="login-form">
+            <label for="email">Email:</label>
+            <input type="email" id="login-email" minlength="6">
+            <label for="password">Password:</label>
+            <input type="password" id="login-password" minlength="6">
+            <button type="submit" class="form-submit">Submit</button>    
+        </form>
 
         <button id="google-login">Login with Google</button><br>
     </div>  
@@ -43,7 +58,7 @@
             <div id="menu-input">
                 <span>study time: </span><input type="number" id = "studyMin" ><span> min.</span>
                 <span><br>break time: </span><input type="number" id = "breakMin"><span> min.<br></span>
-                <button type = "button" id="login-button" class ="menu-content-button">login</button><br>
+                <button type = "button" id="login/sign-up" class ="menu-content-button">login / sign up</button><br>
                 <button type = "button" id="help-button" class ="menu-content-button">help</button>   
             </div>
 
