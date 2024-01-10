@@ -230,12 +230,6 @@ function pad(value) {
 let initialWorkingSeconds = 0;
 //start or pause the countdown when top button is clicked
 document.getElementById('startpause').addEventListener('click', () => {
-    //change to pressed button image for .3 seconds
-    document.getElementById('background-image').src = 'assets/images/pressed.png';
-    setTimeout(function() {
-        document.getElementById('background-image').src = "assets/images/clock2.png";
-    }, 300);
-
     //save inital break or study time or pause if countdown is running
     //ISSUE: doesn't play when pressed once if reset and values changed
     if (breaking) {
@@ -253,8 +247,15 @@ document.getElementById('startpause').addEventListener('click', () => {
             pause = false;
         }
     }
+    
     startCountdown();
     
+    //change to pressed button image for .3 seconds
+    document.getElementById('background-image').src = 'assets/images/pressed.png';
+    setTimeout(function() {
+        document.getElementById('background-image').src = "assets/images/clock2.png";
+    }, 1300);
+
 });
 
 //play alarm
