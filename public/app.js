@@ -173,6 +173,7 @@ function startCountdown() {
                 setTimeout(function() {
                     alert("time's up");
                     alarm.pause();
+                    pause = true;
                 }, 4000); 
                 first = false;
             }
