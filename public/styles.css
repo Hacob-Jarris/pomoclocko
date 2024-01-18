@@ -37,6 +37,8 @@ body {
   box-sizing: border-box;
   font-family: "lemon-milk";
   overflow: hidden;
+  position: absolute;
+  z-index: -9;
 }
 
 input {
@@ -270,12 +272,43 @@ input[type=number] {
   appearance: textfield;
 }
 
+.todo-container {
+  display: flex;
+  position: relative;
+  top: 100px;
+  margin: 20px;
+  border: 4px solid black;
+  border-radius: 15px;
+  background-color: var(--red);
+  z-index: 1;
+  justify-content: left;
+  align-items: center;
+  flex-direction: column;
+  width: 250px;
+  height: min-content;
+}
+
+#new-task-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 9;
+}
+
+#tasks {
+  display: flex;
+
+}
+
 #clock {
+  position: absolute;
+  z-index: -9;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  transform: translate(0, -10px);
+  width: 100vw;
 }
 
 #clock img {

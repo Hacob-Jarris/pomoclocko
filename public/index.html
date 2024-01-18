@@ -11,7 +11,7 @@
     <script defer type="module" src="app.js"></script>
   </head>
   <body>
-    <a href="index.html" id="title">Pomodoro Timer</a>
+    <a href="index.html" id="title">pomodoro timer</a>
 
     <div id="auth-container">
         <div id="form-buttons">
@@ -95,5 +95,20 @@
             <audio id="click"><source src="assets/sounds/click-button-166324.mp3" type="audio/mp3"></audio>
             <audio id="alarm"><source src="assets/sounds/-169440.mp3" type="audio/mp3"></audio>
         </div>
+
+        <div class="todo-container">
+            <form autocomplete="off" id="new-task-form">
+                <h3>To Do:</h3>
+                <div id="todo-input">
+                    <input type="text" name="new-task-input" id="new-task-input" placeholder="add task...">
+                    <button type="submit" id="new-task-submit" >+</button>        
+                </div>
+            </form>
+
+            <div id="tasks">
+                
+            </div>
+        </div>
+
     </body>
 </html>
