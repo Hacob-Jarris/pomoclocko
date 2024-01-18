@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles.css">
 
     <script defer type="module" src="app.js"></script>
-  </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">  </head>
   <body>
     <a href="index.html" id="title">pomodoro timer</a>
 
@@ -19,7 +19,7 @@
             <button id="sign-up">sign up</button>    
         </div>
         
-        <button id="exit">
+        <button class="exit">
             <svg 
             xmlns="http://www.w3.org/2000/svg" 
             width="24" 
@@ -59,7 +59,8 @@
                 <span>study time: </span><input type="number" id = "studyMin" ><span> min.</span>
                 <span><br>break time: </span><input type="number" id = "breakMin"><span> min.<br></span>
                 <button type = "button" id="login/sign-up" class ="menu-content-button">login / sign up</button><br>
-                <button type = "button" id="help-button" class ="menu-content-button">help</button>   
+                <button type = "button" id="todo-list" class="menu-content-button">to-do</button> <br>
+                <button type = "button" id="help-button" class ="menu-content-button">help</button>  
             </div>
 
             <list id="help-text">
@@ -97,16 +98,33 @@
         </div>
 
         <div class="todo-container">
+
+            <button class="exit">
+                <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="3" 
+                stroke-linecap="round" 
+                stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                 </svg>
+            </button>
+    
             <form autocomplete="off" id="new-task-form">
                 <h3>To Do:</h3>
                 <div id="todo-input">
                     <input type="text" name="new-task-input" id="new-task-input" placeholder="add task...">
-                    <button type="submit" id="new-task-submit" >+</button>        
+                    <button type="submit" id="new-task-submit"><i class="fa fa-plus" style="color: white;"></i></button>        
                 </div>
             </form>
 
             <div id="tasks">
-                
+                <!--tasks to be created here-->
             </div>
         </div>
 

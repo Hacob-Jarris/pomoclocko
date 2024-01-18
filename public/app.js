@@ -130,14 +130,17 @@ form.addEventListener("submit", (e) => {
 
     const task = input.value;
 
+    //create task div
     const taskElement = document.createElement("div");
     taskElement.classList.add("task");
 
+    //create content div, append task to it
     const taskContentElement = document.createElement("div");
     taskContentElement.classList.add("content");
 
     taskElement.appendChild(taskContentElement);
 
+    //create task input element to allow for edit, append to content div
     const taskInputElement = document.createElement("input");
     taskInputElement.classList.add("text");
     taskInputElement.type = "text";
@@ -146,16 +149,21 @@ form.addEventListener("submit", (e) => {
 
     taskContentElement.appendChild(taskInputElement);
 
+    //create actions div for edit and delete
     const taskActionsElement = document.createElement("div");
     taskActionsElement.classList.add("actions");
     
+    //edit button
     const taskEditElement = document.createElement("button");
     taskEditElement.classList.add("edit");
     taskEditElement.innerText = "Edit";
 
+    //delete button
     const taskDeleteElement = document.createElement("button");
     taskDeleteElement.classList.add("delete");
-    taskDeleteElement.innerText = "Delete";
+    const icon = document.createElement("i");
+    icon.className = "fas fa-trash";
+    taskDeleteElement.appendChild(icon);
 
     taskActionsElement.appendChild(taskEditElement);
     taskActionsElement.appendChild(taskDeleteElement);
@@ -374,28 +382,28 @@ function handleWheelEvent(event) {
 //open menu on menu button press
 document.getElementById('menu-button').addEventListener('click', () => {
     let panel = document.getElementById("menu");
-    toggleOpen(panel);
+    blockToggleOpen(panel);
 });
 
 //open login on login button press
 document.getElementById('login/sign-up').addEventListener('click', () => {
     let loginMenu = document.getElementById("auth-container");
-
-    if (loginMenu.style.display === "flex") {
-        loginMenu.style.display = "none";
-    } else {
-        loginMenu.style.display = "flex";
-    }
+    flexToggleOpen(loginMenu);
 });
 
 //help button
 document.getElementById('help-button').addEventListener('click', () => {
     let helpText = document.getElementById("help-text");
-    toggleOpen(helpText);    
+    blockToggleOpen(helpText);    
 });
 
+document.getElementById('todo-list').addEventListener('click', () => {
+    let todoList = document.querySelector('.todo-container');
+    flexToggleOpen(todoList);
+})
+
 //open whatever button opens if not open already
-function toggleOpen(a) {
+function blockToggleOpen(a) {
     if (a.style.display === "block") {
         a.style.display = "none";
     } else {
@@ -403,10 +411,27 @@ function toggleOpen(a) {
     }
 };
 
-//login menu close (X) button 
-document.querySelector('#exit').addEventListener('click', () => {
-    document.getElementById("auth-container").style.display = "none";
-    document.getElementById('login-form').style.display = "none";
-    document.getElementById('sing-up-form').style.display = "none";
+function flexToggleOpen(a) {
+    if (a.style.display === "flex") {
+        a.style.display = "none";
+    } else {
+        a.style.display = "flex";
+    }
+}
 
-});
+//login menu close (X) button 
+document.querySelectorAll('.exit').forEach((button) => {
+    button.addEventListener('click', () => {
+        console.log("clicked");
+ 
+        let parentElement = button.closest(".todo-container");
+        if(parentElement) {
+            button.parentElement.style.display = "none";
+            console.log(";lkasdjf;lkasjd;lfkjasd;lkjas");
+        } else {
+            document.getElementById("auth-container").style.display = "none";
+            document.getElementById('login-form').style.display = "none";
+            document.getElementById('sign-up-form').style.display = "none";   
+        }
+    });
+ });

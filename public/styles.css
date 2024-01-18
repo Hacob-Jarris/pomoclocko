@@ -100,8 +100,9 @@ input {
   margin-bottom: 2px;
 }
 
-#auth-container #exit {
+.exit {
   position: absolute;
+  z-index: 10;
   background: transparent;
   border: transparent;
   color: white;
@@ -120,7 +121,7 @@ input {
   }
 }
 
-#exit:hover svg {
+.exit:hover svg {
   scale: 1.2;
   animation: spin .1s linear;
 }
@@ -284,21 +285,30 @@ input[type=number] {
   justify-content: left;
   align-items: center;
   flex-direction: column;
-  width: 250px;
   height: min-content;
+  width: 290px;
+}
+
+.todo-container .exit{
+  top: 20px;
 }
 
 #new-task-form {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
   position: relative;
   z-index: 9;
+  margin-bottom: 20px;
 }
 
 #tasks {
   display: flex;
+  flex-direction: column;
+  align-items: center;
 
+}
+
+.task {
+  display: inline-flex;
+  margin-bottom: 10px;
 }
 
 #clock {
