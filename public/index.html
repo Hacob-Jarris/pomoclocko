@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>pomoClocko</title>
+
     <link rel="icon" type="image/x-icon" href="assets/images/mc-clock.ico">
 
     <link rel="stylesheet" href="styles.css">
@@ -11,7 +12,31 @@
     <script defer type="module" src="app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">  </head>
   <body>
-    <a href="index.html" id="title">pomodoro timer</a>
+
+    <div class="gradient">
+        <a href="index.html" id="title">pomodoro timer</a>
+        <button id="menu-button">MENU</button>        
+        <div id="menu">
+            <div id="menu-input">
+                <span>study time: </span><input type="number" id = "studyMin" ><span> min.</span>
+                <span><br>break time: </span><input type="number" id = "breakMin"><span> min.<br></span>
+                <button type = "button" id="login/sign-up" class ="menu-content-button">login / sign up</button><br>
+                <button type = "button" id="todo-list" class="menu-content-button">to-do</button> <br>
+                <button type = "button" id="help-button" class ="menu-content-button">help</button>  
+            </div>
+
+            <list id="help-text">
+                <br>
+                <li>Start / pause with the top button</li>
+                <h3>Pomodoro Timer:</h3>
+                <li>Set time with above text boxes</li>
+                <li>Click study / break to display time</li>
+                <h3>Normal Timer:</h3>
+                <li>Set time in clock with scroll wheel or by typing</li>
+            </list>
+        </div>
+
+    </div>
 
     <div id="auth-container">
         <div id="form-buttons">
@@ -51,81 +76,69 @@
             <button type="submit" class="form-submit">Submit</button>    
         </form>
 
-        <button id="google-login">Login with Google</button><br>
+        <button id="google-login">Continue with Google</button><br>
     </div>  
-        <button id="menu-button">MENU</button>        
-        <div id="menu">
-            <div id="menu-input">
-                <span>study time: </span><input type="number" id = "studyMin" ><span> min.</span>
-                <span><br>break time: </span><input type="number" id = "breakMin"><span> min.<br></span>
-                <button type = "button" id="login/sign-up" class ="menu-content-button">login / sign up</button><br>
-                <button type = "button" id="todo-list" class="menu-content-button">to-do</button> <br>
-                <button type = "button" id="help-button" class ="menu-content-button">help</button>  
-            </div>
 
-            <list id="help-text">
-                <br>
-                <li>Start / pause with the top button</li>
-                <h3>Pomodoro Timer:</h3>
-                <li>Set time with above text boxes</li>
-                <li>Click study / break to display time</li>
-                <h3>Normal Timer:</h3>
-                <li>Set time in clock with scroll wheel or by typing</li>
-            </list>
-        </div>
-        <div id="clock">
-            <img src="assets/images/clock2.png" alt="clock image" id="background-image">
-            <div id="clock-input">           
-                <input type="number" id="hours" min="0" max="60"> 
-                <span>:</span>
-                <input type="number" id="minutes" min="0" max="60"> 
-                <span>:</span>
-                <input type="number" id="seconds" min="0" max="60"> 
-            </div>
-
-            <!--clock buttons-->
-            <div id="clock-buttons">
-                <button type="button" id="study">study</button>
-                <button type="button"  id="break">break</button>
-                <button type="button" id="reset">reset</button>   
-            </div>
-
-            <button type="button" id="startpause">start</button>
-
-            <!--sound effects-->
-            <audio id="click"><source src="assets/sounds/click-button-166324.mp3" type="audio/mp3"></audio>
-            <audio id="alarm"><source src="assets/sounds/-169440.mp3" type="audio/mp3"></audio>
-        </div>
-
-        <div class="todo-container">
-
-            <button class="exit">
-                <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="3" 
-                stroke-linecap="round" 
-                stroke-linejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                 </svg>
-            </button>
-    
-            <form autocomplete="off" id="new-task-form">
-                <h3>To Do:</h3>
-                <div id="todo-input">
-                    <input type="text" name="new-task-input" id="new-task-input" placeholder="add task...">
-                    <button type="submit" id="new-task-submit"><i class="fa fa-plus" style="color: white;"></i></button>        
+        <div class="main-content">
+            <div id="clock">
+                <img src="assets/images/clock2.png" alt="clock image" id="background-image">
+                <div id="clock-input">           
+                    <input type="number" id="hours" min="0" max="60"> 
+                    <span>:</span>
+                    <input type="number" id="minutes" min="0" max="60"> 
+                    <span>:</span>
+                    <input type="number" id="seconds" min="0" max="60"> 
                 </div>
-            </form>
-
-            <div id="tasks">
-                <!--tasks to be created here-->
+    
+                <!--clock buttons-->
+                <div id="clock-buttons">
+                    <button type="button" id="study">study</button>
+                    <button type="button"  id="break">break</button>
+                    <button type="button" id="reset">reset</button>   
+                </div>
+    
+                <button type="button" id="startpause">start</button>
+    
+                <div id="clock-bg">
+    
+                </div>
+                <!--sound effects-->
+                <audio id="click"><source src="assets/sounds/click-button-166324.mp3" type="audio/mp3"></audio>
+                <audio id="alarm"><source src="assets/sounds/-169440.mp3" type="audio/mp3"></audio>
             </div>
+    
+            <div class="todo-container">
+    
+                <button class="exit">
+                    <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="24" 
+                    height="24" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="3" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                </button>
+        
+                <form autocomplete="off" id="new-task-form">
+                    <h3>To Do:</h3>
+                    <div id="todo-input">
+                        <input type="text" name="new-task-input" id="new-task-input" placeholder="add task...">
+                        <button type="submit" id="new-task-submit"><i class="fa fa-plus"></i></button>        
+                    </div>
+                </form>
+    
+                <div id="tasks">
+                    <!--tasks to be created here-->
+                </div>
+    
+            </div>
+    
         </div>
 
     </body>

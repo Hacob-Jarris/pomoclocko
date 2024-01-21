@@ -105,7 +105,7 @@ document.getElementById('login').addEventListener('click', () => {
     document.getElementById('sign-up-form').style.display = 'none';
     document.getElementById('login-form').style.display = 'flex';
     document.getElementById('sign-up').style.background = 'none';
-    document.getElementById('login').style.background = 'rgb(30, 33, 1)';
+    document.getElementById('login').style.background = 'rgb(105, 66, 47)';
 
 });
 
@@ -115,7 +115,7 @@ document.getElementById('sign-up').addEventListener('click', () => {
     document.getElementById('sign-up-form').style.display = 'flex';
 
     document.getElementById('login').style.background = 'none';
-    document.getElementById('sign-up').style.background = 'rgb(30, 33, 1)';
+    document.getElementById('sign-up').style.background = 'rgb(105, 66, 47)';
 
 
 });
@@ -162,7 +162,7 @@ form.addEventListener("submit", (e) => {
     const taskDeleteElement = document.createElement("button");
     taskDeleteElement.classList.add("delete");
     const icon = document.createElement("i");
-    icon.className = "fas fa-trash";
+    icon.className = "fa fa-check";
     taskDeleteElement.appendChild(icon);
 
     taskActionsElement.appendChild(taskEditElement);
@@ -306,7 +306,7 @@ document.getElementById('reset').addEventListener('click', () => {
     document.getElementById('minutes').value = '00';
     document.getElementById('seconds').value = '00';
     startCountdown();
-   
+    pause = true;
 });
 
 //return formatted string to be displayed
