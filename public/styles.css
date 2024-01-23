@@ -181,7 +181,8 @@ input {
   width: 100%;
   height: 100px;
   position: relative;
-  background: linear-gradient(to right, var(--red), red);
+  background: linear-gradient(var(--red), rgba(55,1,1,.5));
+
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
@@ -444,9 +445,7 @@ input[type=number] {
 }
 /*only show clock and menu at small height*/
 @media (max-height: 750px) or (max-width: 485px) {
-  #title {
-    font-size: 1rem;
-  }
+ 
   #clock {
     transform: scale(0.75);
   }
@@ -459,6 +458,9 @@ input[type=number] {
   }
 }
 @media (max-width: 530px) {
+  #title {
+    font-size: 1rem;
+  }
   #clock {
     transform: scale(0.5);
   }
@@ -487,6 +489,7 @@ input[type=number] {
   #clock-buttons {
     display: inline-flex;
   }
+  
 }
 @media (max-width: 300px) {
   #clock {
@@ -513,4 +516,7 @@ input[type=number] {
   .todo-container {
     display: none;
   } 
+  #clock {
+    transform: scale(0.7) translateY(50px);
+  }
 }

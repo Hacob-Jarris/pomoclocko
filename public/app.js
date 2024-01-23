@@ -1,7 +1,7 @@
 //importing needed functions from respective software dev kit (SDK)
 //import { <service getter functions> } from "<content delivery network (CDN) URL>";
 import { initializeApp, getApps} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 //firebase config for this web app (from firebase console)
@@ -37,7 +37,7 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-//working google login
+//working google login/ registerp
 let provider = new GoogleAuthProvider();
 document.getElementById('google-login').addEventListener('click', () => {
     signInWithPopup(auth, provider)
@@ -47,29 +47,35 @@ document.getElementById('google-login').addEventListener('click', () => {
         //current user set to user object from promise resolution of signInWithPopup 
         let user = result.user;
         //stuff i might need to do with user later goes here-----------------------
+
+
     //catch errors and alert user
-    }).catch(function(error) {
-        //firebase error codes to identify error
-        switch (error.code) {
-            case 'auth/popup-closed-by-user':
-                alert('The popup was closed by the user. Please try again.');
-                break;
-            case 'auth/popup-blocked':
-                alert('The popup was blocked by the browser. Please enable popups for this site.');
-                break;
-            default:
-                alert('An unknown error occurred. Please try again.');
-        }
+    // }).catch(function(error) {
+    //     //firebase error codes to identify error
+    //     switch (error.code) {
+    //         case 'auth/popup-closed-by-user':
+    //             alert('The popup was closed by the user. Please try again.');
+    //             break;
+    //         case 'auth/popup-blocked':
+    //             alert('The popup was blocked by the browser. Please enable popups for this site.');
+    //             break;
+    //         default:
+    //             alert('An unknown error occurred. Please try again.');
+    //     }
     });
 });
 
-// //register form
+//register form
 document.getElementById('sign-up-form').addEventListener('submit', (event) => {
+    //prevent page refresh
     event.preventDefault();
 
+    //get email, password
     const email = document.getElementById('email').value;
-    const password = document.getElementById('reg-password').value;
+    console.log(email);
+    const password = document.getElementById('password').value;
    
+    //
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             //singed in
@@ -79,10 +85,11 @@ document.getElementById('sign-up-form').addEventListener('submit', (event) => {
             let errorCode = error.code;
             let errorMessage = error.message;
             console.log(errorCode, errorMessage);
+            alert(errorMessage);
         });
 });
 
-// //email login form
+//email login form
 document.getElementById('login-form').addEventListener('submit', function(e) {
     e.preventDefault();
  
@@ -96,6 +103,8 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         .catch((error) => {
             let errorCode = error.code;
             let errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+            alert(errorMessage);
         });
  });
 
@@ -191,7 +200,43 @@ form.addEventListener("submit", (e) => {
     })
 })
 
+//add todos to firestore db
 
+//get new task and 
+const inputForm = document.getElementById("new-task-form")
+let date = new Date();
+let time = date.getTime();
+let counter = time;
+
+inputForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const todos = inputForm['new-task-input'].value;
+    console.log(todos);
+
+    let id = counter += 1;
+    inputForm.reset();
+
+    //if user is logged in, add todos to firestore
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const docRef = doc(db, "users", user.uid);
+        setDoc(docRef, {
+          id: "_" + id,
+          todos
+        }).then(() => {
+          console.log('todo added');
+        }).catch((error) => {
+          console.log(error.message);
+          alert(error.message); //!!security issues, try real account next
+        })
+      } else {
+        console.log('user is not signed in to add todos');
+      }
+    })
+})
+
+   
 //begin with zero values in clock
 document.getElementById('hours').value = '00';
 document.getElementById('minutes').value = '00';
@@ -275,8 +320,7 @@ functionRunning = false;
 
 //display inputted break time on break button press
 document.getElementById('break').addEventListener('click', () => {
-    breaking = true;
-
+    breaking = t 
     minutes = breakMinutes.value;
     if (countdown) { clearInterval(countdown); }
 
