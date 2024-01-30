@@ -40,7 +40,7 @@ body {
 }
 
 input {
-  caret-color: var(--red);
+  caret-color: white;
   font-weight: 500;
   font-family: "open-sans";
 }
@@ -409,6 +409,8 @@ input[type=number] {
   position: absolute;
   z-index: 1;
   transform: translate(12px, 89px);
+  display: flex;
+  align-items: center;
 }
 
 #clock-buttons button {
