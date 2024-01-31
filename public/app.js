@@ -129,6 +129,14 @@ document.getElementById('sign-up').addEventListener('click', () => {
 
 });
 
+//background color picker 
+let colorPicker = document.getElementById('color-picker');
+colorPicker.addEventListener('input', function () {
+    console.log('in here');
+    document.body.style.backgroundColor = colorPicker.value;
+});
+  
+
 //todo list
 const form = document.getElementById("new-task-form");
 const input = document.getElementById("new-task-input");
@@ -227,8 +235,8 @@ inputForm.addEventListener('submit', e => {
         }).then(() => {
           console.log('todo added');
         }).catch((error) => {
-          console.log(error.message);
-          alert(error.message); //!!security issues, try real account next
+        //   console.log(error.message);
+        //   alert(error.message); //!!security issues, try real account next
         })
       } else {
         console.log('user is not signed in to add todos');
@@ -479,3 +487,4 @@ document.querySelectorAll('.exit').forEach((button) => {
         }
     });
  });
+

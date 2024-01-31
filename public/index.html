@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">  </head>
   <body>
 
-    <div class="gradient">
+    <nav class="navbar">
         <a href="index.html" id="title">pomodoro timer</a>
         <button id="menu-button">MENU</button>        
         <div id="menu">
@@ -22,7 +22,9 @@
                 <span><br>break time: </span><input type="number" id = "breakMin"><span> min.<br></span>
                 <button type = "button" id="login/sign-up" class ="menu-content-button">login / sign up</button><br>
                 <button type = "button" id="todo-list" class="menu-content-button">to-do</button> <br>
-                <button type = "button" id="help-button" class ="menu-content-button">help</button>  
+                <button type = "button" id="help-button" class ="menu-content-button">help</button> <br><br> 
+                <label for="color-picker">background color:</label><br>
+                <input type="color" id="color-picker" name="color-picker">
             </div>
 
             <list id="help-text">
@@ -36,7 +38,7 @@
             </list>
         </div>
 
-    </div>
+    </nav>
 
     <div id="auth-container">
         <div id="form-buttons">
@@ -99,9 +101,6 @@
     
                 <button type="button" id="startpause">start</button>
     
-                <div id="clock-bg">
-    
-                </div>
                 <!--sound effects-->
                 <audio id="click"><source src="assets/sounds/click-button-166324.mp3" type="audio/mp3"></audio>
                 <audio id="alarm"><source src="assets/sounds/-169440.mp3" type="audio/mp3"></audio>
