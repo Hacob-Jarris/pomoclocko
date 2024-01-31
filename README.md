@@ -1,6 +1,6 @@
 <h1>pomoclocko</h1>
 
-<p>Simple pomodoro timer with digital alarm clock theme. Working on login</p>
+<p>Simple pomodoro timer with digital alarm clock theme. Working on todo database</p>
 <br>https://pomoclocko.web.app
 <hr>
 
