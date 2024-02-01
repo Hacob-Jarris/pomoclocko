@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>pomoClocko</title>
@@ -10,19 +11,20 @@
     <link rel="stylesheet" href="styles.css">
 
     <script defer type="module" src="app.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">  </head>
-  <body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
 
-    <nav class="navbar">
+<body>
+    <header>
         <a href="index.html" id="title">pomodoro timer</a>
-        <button id="menu-button">MENU</button>        
+        <button id="menu-button">MENU</button>
         <div id="menu">
             <div id="menu-input">
-                <span>study time: </span><input type="number" id = "studyMin" ><span> min.</span>
-                <span><br>break time: </span><input type="number" id = "breakMin"><span> min.<br></span>
-                <button type = "button" id="login/sign-up" class ="menu-content-button">login / sign up</button><br>
-                <button type = "button" id="todo-list" class="menu-content-button">to-do</button> <br>
-                <button type = "button" id="help-button" class ="menu-content-button">help</button> <br><br> 
+                <span>study time: </span><input type="number" id="studyMin"><span> min.</span>
+                <span><br>break time: </span><input type="number" id="breakMin"><span> min.<br></span>
+                <button type="button" id="login/sign-up" class="menu-content-button">login / sign up</button><br>
+                <button type="button" id="todo-list" class="menu-content-button">to-do</button> <br>
+                <button type="button" id="help-button" class="menu-content-button">help</button> <br><br>
                 <label for="color-picker">background color:</label><br>
                 <input type="color" id="color-picker" name="color-picker">
             </div>
@@ -37,29 +39,20 @@
                 <li>Set time in clock with scroll wheel or by typing</li>
             </list>
         </div>
+    </header>
 
-    </nav>
-
-    <div id="auth-container">
+    <section id="auth-container">
         <div id="form-buttons">
             <button id="login">login</button>
-            <button id="sign-up">sign up</button>    
+            <button id="sign-up">sign up</button>
         </div>
-        
+
         <button class="exit">
-            <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            stroke-width="3" 
-            stroke-linecap="round" 
-            stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
+            </svg>
         </button>
 
         <form id="sign-up-form">
@@ -67,7 +60,7 @@
             <input type="email" id="email" minlength="6">
             <label for="password">Password:</label>
             <input type="password" id="password" minlength="6">
-            <button type="submit" class="form-submit">Submit</button>    
+            <button type="submit" class="form-submit">Submit</button>
         </form>
 
         <form id="login-form">
@@ -75,68 +68,65 @@
             <input type="email" id="login-email" minlength="6">
             <label for="password">Password:</label>
             <input type="password" id="login-password" minlength="6">
-            <button type="submit" class="form-submit">Submit</button>    
+            <button type="submit" class="form-submit">Submit</button>
         </form>
 
         <button id="google-login">Continue with Google</button><br>
-    </div>  
+    </section>
 
-        <div class="main-content">
-            <div id="clock">
-                <img src="assets/images/clock2.png" alt="clock image" id="background-image">
-                <div id="clock-input">           
-                    <input type="number" id="hours" min="0" max="60"> 
-                    <span>:</span>
-                    <input type="number" id="minutes" min="0" max="60"> 
-                    <span>:</span>
-                    <input type="number" id="seconds" min="0" max="60"> 
-                </div>
-    
-                <!--clock buttons-->
-                <div id="clock-buttons">
-                    <button type="button" id="study">study</button>
-                    <button type="button"  id="break">break</button>
-                    <button type="button" id="reset">reset</button>   
-                </div>
-    
-                <button type="button" id="startpause">start</button>
-    
-                <!--sound effects-->
-                <audio id="click"><source src="assets/sounds/click-button-166324.mp3" type="audio/mp3"></audio>
-                <audio id="alarm"><source src="assets/sounds/-169440.mp3" type="audio/mp3"></audio>
+    <main>
+        <div id="clock">
+            <img src="assets/images/clock2.png" alt="clock image" id="background-image">
+            <div id="clock-input">
+                <input type="number" id="hours" min="0" max="60">
+                <span>:</span>
+                <input type="number" id="minutes" min="0" max="60">
+                <span>:</span>
+                <input type="number" id="seconds" min="0" max="60">
             </div>
-    
-            <div class="todo-container">
-    
-                <button class="exit">
-                    <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="24" 
-                    height="24" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    stroke-width="3" 
-                    stroke-linecap="round" 
-                    stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                </button>
-        
-                <form autocomplete="off" id="new-task-form">
-                    <h3>To Do:</h3>
-                    <input type="text" name="new-task-input" id="new-task-input" placeholder="add task...">
-                    <button type="submit" id="new-task-submit"><i class="fa fa-plus"></i></button>        
-                </form>
-    
-                <div id="tasks">
-                    <!--tasks to be created here-->
-                </div>
-    
+
+            <!--clock buttons-->
+            <div id="clock-buttons">
+                <button type="button" id="study">study</button>
+                <button type="button" id="break">break</button>
+                <button type="button" id="reset">reset</button>
             </div>
-    
+
+            <button type="button" id="startpause">start</button>
+
+            <!--sound effects-->
+            <audio id="click">
+                <source src="assets/sounds/click-button-166324.mp3" type="audio/mp3">
+            </audio>
+            <audio id="alarm">
+                <source src="assets/sounds/-169440.mp3" type="audio/mp3">
+            </audio>
         </div>
 
-    </body>
+        <div class="todo-container">
+
+            <button class="exit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <form autocomplete="off" id="new-task-form">
+                <h3>To Do:</h3>
+                <input type="text" name="new-task-input" id="new-task-input" placeholder="add task...">
+                <button type="submit" id="new-task-submit"><i class="fa fa-plus"></i></button>
+            </form>
+
+            <div id="tasks">
+                <!--tasks to be created here-->
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
 </html>

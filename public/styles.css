@@ -175,7 +175,7 @@ input {
   transition: .4s;
 }
 
-.navbar {
+header {
   display: flex;
   align-items: center;
   width: 100%;
@@ -246,8 +246,9 @@ input {
 #color-picker {
   cursor: pointer;
   width: 35px;
-  padding: 2px;
+  padding: 0;
   margin-top: 10px;
+  border: 3px solid var(--brown);
 }
 
 #help-text {
@@ -280,7 +281,7 @@ input[type=number] {
   appearance: textfield;
 }
 
-.main-content {
+main {
   height: 100%;
   position: relative;
   display: flex;
