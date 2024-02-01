@@ -441,6 +441,7 @@ document.getElementById('menu-button').addEventListener('click', () => {
 document.getElementById('login/sign-up').addEventListener('click', () => {
     let loginMenu = document.getElementById("auth-container");
     flexToggleOpen(loginMenu);
+    document.getElementById("menu").style.display = "none";
 });
 
 //help button
