@@ -141,12 +141,18 @@ colorPicker.addEventListener('input', function () {
 const form = document.getElementById("new-task-form");
 const input = document.getElementById("new-task-input");
 const listElement = document.getElementById("tasks");
+let taskNum = 1;
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const task = input.value;
 
+    addTodoTask(task);
+   
+});
+
+function addTodoTask(task) {
     //create task div
     const taskElement = document.createElement("div");
     taskElement.classList.add("task");
@@ -207,40 +213,35 @@ form.addEventListener("submit", (e) => {
         listElement.removeChild(taskElement);
     })
 
-   
-    addToLocalStorage("tasks", task);
-});
-//add todos to local storage
+    //create key for each task item and add to local storage
+    let key = "task" + taskNum;
+    addToLocalStorage(key, task);
+    taskNum++;
+
+    console.log('local storage length: ' + localStorage.length);
+}
+
 function addToLocalStorage(key, task) {
+    //check if local storage is supported
     if (typeof(Storage) !== "undefined") {
-        //clear past array
-        console.log("local storage supported");
-
-        //get array form of local storage string, and add task
-        const currentArray = JSON.parse(localStorage.getItem(key)) || [];
-        // currentArray.push(task);
-        console.log(typeof currentArray);
         //set array to local storage
-        localStorage.setItem(key, JSON.stringify(currentArray));
-        console.log('added task to local storage');
+        localStorage.setItem(key, task);
+
+        console.log('added task to local storage: ' + key + ' : ' + task);
     } else {
         console.log("local storage not supported");
     }
 }
 
-//get todos from local storage 
-function getFromLocalStorage(key) {
-    if (typeof(Storage) !== "undefined") {
-        const storedTaskArr = JSON.parse(localStorage.getItem(key));
-        return storedTaskArr;
-    } else {
-        console.log("local storage not supported");
-        return null;
-    }
-}
-
+//get todos from local storage on page load
 document.addEventListener('DOMContentLoaded', () => {
-    const currentTaskArr = getFromLocalStorage("tasks");
+    if (typeof(Storage) !== "undefined") {
+        for(let i = 1; i <= localStorage.length; i++) {
+            addTodoTask(localStorage.getItem("task" + i));
+        }
+    }else {
+        console.log("local storage not supported");
+    }
 })
 
 //add todos to firestore db
