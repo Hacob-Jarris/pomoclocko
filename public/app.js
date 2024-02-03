@@ -157,7 +157,7 @@ form.addEventListener("submit", (e) => {
 
     taskElement.appendChild(taskContentElement);
 
-    //create task input element to allow for edit, append to content div
+    //create task as an input element for editing, append to content to display
     const taskInputElement = document.createElement("input");
     taskInputElement.classList.add("text");
     taskInputElement.type = "text";
@@ -206,6 +206,41 @@ form.addEventListener("submit", (e) => {
     taskDeleteElement.addEventListener("click", (e) => {
         listElement.removeChild(taskElement);
     })
+
+   
+    addToLocalStorage("tasks", task);
+});
+//add todos to local storage
+function addToLocalStorage(key, task) {
+    if (typeof(Storage) !== "undefined") {
+        //clear past array
+        console.log("local storage supported");
+
+        //get array form of local storage string, and add task
+        const currentArray = JSON.parse(localStorage.getItem(key)) || [];
+        // currentArray.push(task);
+        console.log(typeof currentArray);
+        //set array to local storage
+        localStorage.setItem(key, JSON.stringify(currentArray));
+        console.log('added task to local storage');
+    } else {
+        console.log("local storage not supported");
+    }
+}
+
+//get todos from local storage 
+function getFromLocalStorage(key) {
+    if (typeof(Storage) !== "undefined") {
+        const storedTaskArr = JSON.parse(localStorage.getItem(key));
+        return storedTaskArr;
+    } else {
+        console.log("local storage not supported");
+        return null;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const currentTaskArr = getFromLocalStorage("tasks");
 })
 
 //add todos to firestore db
@@ -328,7 +363,7 @@ functionRunning = false;
 
 //display inputted break time on break button press
 document.getElementById('break').addEventListener('click', () => {
-    breaking = t 
+    breaking = true;
     minutes = breakMinutes.value;
     if (countdown) { clearInterval(countdown); }
 
