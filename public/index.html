@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pomodoro timer with todo list">
     <title>pomoClocko</title>
 
     <link rel="icon" type="image/x-icon" href="assets/images/mc-clock.ico">
@@ -22,13 +23,15 @@
             <div id="menu-input">
                 <span>study time: </span><input type="number" id="studyMin"><span> min.</span>
                 <span><br>break time: </span><input type="number" id="breakMin"><span> min.<br></span>
-                <button type="button" id="login/sign-up" class="menu-content-button">login / sign up</button><br>
+                <p id="auth-status"></p>
+                <button type="button" id="register" class="menu-content-button">login / sign up</button>
+                <button type="button" id="sign-out" class="menu-content-button">sign out</button>
+                <br>
                 <button type="button" id="todo-list" class="menu-content-button">to-do</button> <br>
                 <button type="button" id="help-button" class="menu-content-button">help</button> <br><br>
                 <label for="color-picker">background color:</label><br>
                 <input type="color" id="color-picker" name="color-picker">
             </div>
-
 
             <div id="help-text">
                 <h3>Help:</h3>
@@ -44,8 +47,8 @@
 
     <section id="auth-container">
         <div id="form-buttons">
-            <button id="login">login</button>
-            <button id="sign-up">sign up</button>
+            <button id="login" class="button">login</button>
+            <button id="sign-up" class="button">sign up</button>
         </div>
 
         <button class="exit">
@@ -61,7 +64,10 @@
             <input type="email" id="email" minlength="6">
             <label for="password">Password:</label>
             <input type="password" id="password" minlength="6">
+            <label for="password">Retype Password:</label>
+            <input type="password" id="password-check" minlength="6">
             <button type="submit" class="form-submit">Submit</button>
+
         </form>
 
         <form id="login-form">
@@ -71,7 +77,7 @@
             <input type="password" id="login-password" minlength="6">
             <button type="submit" class="form-submit">Submit</button>
         </form>
-
+        <p>or:</p>
         <button id="google-login">Continue with Google</button><br>
     </section>
 
@@ -93,7 +99,7 @@
                 <button type="button" id="reset">reset</button>
             </div>
 
-            <button type="button" id="startpause">start</button>
+            <button type="button" id="startpause"></button>
 
             <!--sound effects-->
             <audio id="click">
@@ -117,7 +123,7 @@
             <form autocomplete="off" id="new-task-form">
                 <h3>To Do:</h3>
                 <input type="text" name="new-task-input" id="new-task-input" placeholder="add task...">
-                <button type="submit" id="new-task-submit"><i class="fa fa-plus"></i></button>
+                <button type="submit" id="new-task-submit" class="button"><i class="fa fa-plus"></i></button>
             </form>
 
             <div id="tasks">

@@ -19,7 +19,7 @@
   --black: rgba(0, 0, 0, .83);
   --brown: rgb(105, 66, 47);
   --black-transparent: rgba(60, 11, 11, 0.911);
-  --grey: rgb(68, 61, 61);
+  --grey: rgb(116, 116, 116);
 }
 
 html {
@@ -53,7 +53,7 @@ input {
   z-index: 1;
   opacity: 1;
   background-color: var(--black);
-  border: 4px solid var(--brown);
+  border: 1px solid white;
   width: max-content;
   padding-bottom: 0;
   border-radius: 1em;
@@ -80,9 +80,9 @@ input {
 
 #login, #sign-up {
   font-family: "lemon-milk";
-  background: var(--brown);
+  background: transparent;
   color: white;
-  border: transparent;
+  border: 1px solid white;
   border-radius: .3em;
   padding: .4em;
   margin: 0 .5em;
@@ -90,10 +90,12 @@ input {
 }
 
 #login:hover, #sign-up:hover {
-  border-radius: 5px;
+  background-color: var(--grey);
+  border-radius: 10px;
+  transition: .3s;
 }
 
-#auth-container *:not(input, #google-login) {
+#auth-container *:not(input, #google-login, .form-submit) {
   margin-top: 10px;
   margin-bottom: 2px;
 }
@@ -125,23 +127,18 @@ input {
 }
 
 .form-submit {
-  margin: 15px;
-  top: auto;
-  right: auto;
-  bottom: 0;
+  margin-top: 20px;
   font-family: "lemon-milk";
-  background-color: var(--brown);
-  color: white;
   border: transparent;
   border-radius: .2em;
-  padding: .4em;
+  padding: .1em .4em;
   align-self: center;
   cursor: pointer;
   transition: border-radius .5s;
 }
 
 .form-submit:hover {
-  border-radius: .6em;
+  border-radius: .4em;
 }
 
 #google-login {
@@ -151,7 +148,7 @@ input {
   padding: 12px 16px 12px 42px;
   border: none;
   border-radius: 3px;
-  color: black;
+  color: var(--black);
   font-size: .8rem;
   font-weight: 500;
   background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
@@ -159,7 +156,7 @@ input {
   background-color: white;
   background-position: 12px 11px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 /*logo, menu*/
@@ -185,7 +182,6 @@ header {
   border-bottom-right-radius: 15px;
 }
 
-
 #menu {
   display: none;
   position: absolute;
@@ -196,7 +192,6 @@ header {
   background-color: var(--black);
   padding: 10px;
   border-radius: 15px;
-  border: 4px solid var(--brown);
   width: 150px;
   text-align: center;
 }
@@ -214,7 +209,7 @@ header {
   top: 30px;
   right: 35px;
   border: transparent;
-  background-color: black;
+  background-color: var(--black);
   border-radius: 0.2rem;
 }
 
@@ -226,20 +221,28 @@ header {
   background: var(--black);
 }
 
+#register {
+  display: inline-flex;
+}
+
 .menu-content-button {
   cursor: pointer;
-  background-color: var(--brown);
+  background-color: transparent;
   color: white;
   font-family: "lemon-milk";
-  border: transparent;
+  border: 1px solid white;
   border-radius: 4px;
   margin-top: 10px;
   padding: 5px;
-  transition: 0.3s;
 }
 
-.menu-content-button:hover {
-  background-color: var(--brown);
+#sign-out {
+  display: none;
+}
+
+.menu-content-button:hover, #new-task-submit:hover, .button:hover {
+  transition: 0.3s;
+  background-color: var(--grey);
   border-radius: 9px;
 }
 
@@ -248,7 +251,6 @@ header {
   width: 35px;
   padding: 0;
   margin-top: 10px;
-  border: 3px solid var(--brown);
 }
 
 #help-text {
@@ -294,13 +296,13 @@ main {
   align-items: center;
   z-index: -9;
 }
+
 .todo-container {
-  display: flex;
+  display: none;
   align-items: center;
   flex-direction: column;
   position: relative;
   border-radius: 15px;
-  border: 4px solid var(--brown);
   background-color: var(--black);
   z-index: 1;
   height: min-content;
@@ -314,17 +316,17 @@ main {
 
 #new-task-input {
   color: white;
-  background-color: black;
-  border: transparent;
+  background-color: transparent;
+  border: 1px solid white;
   border-radius: 3px;
-  padding: .3em;
+  padding: .355em;
 }
 
 #new-task-submit {
-  background-color: black;
+  background-color: transparent;
   color: white;
   border-radius: 3px;
-  border: transparent;
+  border: 1px solid white;
   padding: .3em .5em;
 }
 
@@ -346,7 +348,7 @@ main {
 }
 
 .text {
-  background-color: black;
+  background-color: transparent;
   color: white;
   border: transparent;
   border-radius: 2px;
@@ -355,7 +357,7 @@ main {
 
 .edit, .delete {
   margin-left: 5px;
-  background-color: black;
+  background-color: transparent;
   color: white;
   border: transparent;
   border-radius: 5px;
@@ -436,8 +438,9 @@ main {
 }
 
 #startpause {
+  color: white;
   position: absolute;
-  font-size: 0;
+  font-size: 1em;
   border: transparent;
   background: transparent;
   cursor: pointer;
@@ -446,7 +449,6 @@ main {
   transform: translate(132px, -150px);
 }
 
-/*increase clock size when it gets too small*/
 @media (max-width: 700px) {
   #clock {
     transform: scale(0.75);
@@ -456,7 +458,6 @@ main {
     transform: translateY(-50px);
   }
 }
-/*only show clock and menu at small height*/
 @media (max-height: 750px) or (max-width: 485px) {
  
   #clock {
@@ -477,19 +478,7 @@ main {
   #clock {
     transform: scale(0.5);
   }
-  /* #menu {
-    position: absolute;
-    display: flex;
-    margin: 0;
-    top: 5rem;
-    width: 200px;
-    height: min-content;
-    border: 4px solid var(--brown);
-    border-radius: 0;
-    text-align: left;
-    font-size: 1rem;
-    border-radius: 0.5rem;
-  } */
+
   #startpause {
     width: 100px;
     height: 40px;

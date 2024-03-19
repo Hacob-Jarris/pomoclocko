@@ -1,10 +1,10 @@
 //importing needed functions from respective software dev kit (SDK)
-//import { <service getter functions> } from "<content delivery network (CDN) URL>";
+//import { service getter functions } from "CDN URL";
 import { initializeApp, getApps} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signOut, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-//firebase config for this web app (from firebase console)
+//firebase config from firebase console
 const config = {
     apiKey: "AIzaSyDRh9xsD28lcqbKySQGMUg8r4-7ohdyUDI",
     authDomain: "pomoclocko.firebaseapp.com",
@@ -16,52 +16,48 @@ const config = {
     measurementId: "G-QE9HYP56J8"
 };
 
-//initializing firebase app instance
-let firebaseApp;
-if(!getApps().length) {
-    firebaseApp = initializeApp(config);
-}else {
-    firebaseApp = getApps();
-}
+//initializing firebase
+const firebaseApp = initializeApp(config);
 
-//set auth and firestore objects to a variable
+//initialize and get reference for services using imported service getter functions
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
 //get auth status of user
 onAuthStateChanged(auth, (user) => {
     if(user != null) {
-        console.log('logged in as ' + user.email);
+        console.log('user logged in as ' + user.email);
+        document.getElementById('auth-status').innerHTML = `Logged in as ${user.email}`
+
+        //hide sign in/ login button, show sign out button
+        document.getElementById('register').style.display = 'none';
+        document.getElementById('sign-out').style.display = 'inline-flex';
     } else { 
         console.log('not logged in');
+        document.getElementById('auth-status').innerHTML = `Not logged in`
+
     }
 });
 
-//working google login/ registerp
+//google auth
 let provider = new GoogleAuthProvider();
 document.getElementById('google-login').addEventListener('click', () => {
     signInWithPopup(auth, provider)
-    .then(function(result) {
-        //google access token to access Google API.
-        let token = result.credential.accessToken;
-        //current user set to user object from promise resolution of signInWithPopup 
-        let user = result.user;
-        //stuff i might need to do with user later goes here-----------------------
+    .then((result) => {
+        document.getElementById('auth-container').style.display = 'none';
+        const credential = GoogleAuthProvider.credentialFromResult(result);
 
-
-    //catch errors and alert user
-    // }).catch(function(error) {
-    //     //firebase error codes to identify error
-    //     switch (error.code) {
-    //         case 'auth/popup-closed-by-user':
-    //             alert('The popup was closed by the user. Please try again.');
-    //             break;
-    //         case 'auth/popup-blocked':
-    //             alert('The popup was blocked by the browser. Please enable popups for this site.');
-    //             break;
-    //         default:
-    //             alert('An unknown error occurred. Please try again.');
-    //     }
+        if (credential) {
+            const user = result.user;
+            const token = credential.accessToken;
+        } else {
+            console.log("No credential available in the result.");
+        }
+    }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
     });
 });
 
@@ -75,7 +71,6 @@ document.getElementById('sign-up-form').addEventListener('submit', (event) => {
     console.log(email);
     const password = document.getElementById('password').value;
    
-    //
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             //singed in
@@ -92,7 +87,7 @@ document.getElementById('sign-up-form').addEventListener('submit', (event) => {
 //email login form
 document.getElementById('login-form').addEventListener('submit', function(e) {
     e.preventDefault();
- 
+
     let email = document.getElementById('login-email').value;
     let password = document.getElementById('login-password').value;
  
@@ -108,68 +103,91 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         });
  });
 
-
 document.getElementById('login').addEventListener('click', () => {
-    //display login form, hide sign up form
-    document.getElementById('sign-up-form').style.display = 'none';
     document.getElementById('login-form').style.display = 'flex';
+    document.getElementById('sign-up-form').style.display = 'none';
     document.getElementById('sign-up').style.background = 'none';
-    document.getElementById('login').style.background = 'rgb(105, 66, 47)';
-
+    document.getElementById('login').style.background = 'rgb(116, 116, 116)';    
 });
 
 document.getElementById('sign-up').addEventListener('click', () => {
-    //display sign-up form, hide login form
     document.getElementById('login-form').style.display = 'none';
     document.getElementById('sign-up-form').style.display = 'flex';
-
     document.getElementById('login').style.background = 'none';
-    document.getElementById('sign-up').style.background = 'rgb(105, 66, 47)';
+    document.getElementById('sign-up').style.background = 'rgb(116, 116, 116)';
+});
 
+document.getElementById('sign-out').addEventListener('click', () => {
+    signOut(auth).then(() => {
+        console.log('signed out user');
+        document.getElementById('register').style.display = 'inline-flex';
+        document.getElementById('sign-out').style.display = 'none';
 
+    }).catch((error) => {
+        console.log('couldnt sign out user', error)
+    });
 });
 
 //background color picker 
 let colorPicker = document.getElementById('color-picker');
 colorPicker.addEventListener('input', function () {
-    console.log('in here');
     document.body.style.backgroundColor = colorPicker.value;
 });
-  
+
+// colorPicker.addEventListener('change', function () {
+//     console.log('adding color to local storage: ' + colorPicker.value);
+//     localStorage.setItem('bgColor', colorPicker.value);
+// })
 
 //todo list
 const form = document.getElementById("new-task-form");
 const input = document.getElementById("new-task-input");
 const listElement = document.getElementById("tasks");
-let taskNum = 1;
+//storage length - bgColor key 
+// localStorage.clear();
+// console.log(localStorage.length);
 
+//event listener for task form submit
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    //get task
     const task = input.value;
+    console.log('task entered: ' + task);
 
+    //add task to todo list
     addTodoTask(task);
-   
+
+    // addToLocalStorage(key, task);
 });
 
 function addTodoTask(task) {
+
+    if (task === "" || task === null) {
+        console.log('not adding empty task');
+        return;
+    }
+
     //create task div
     const taskElement = document.createElement("div");
     taskElement.classList.add("task");
 
-    //create content div, append task to it
+    //create content div
     const taskContentElement = document.createElement("div");
     taskContentElement.classList.add("content");
 
+    //set content div as child of task div
     taskElement.appendChild(taskContentElement);
 
-    //create task as an input element for editing, append to content to display
+    //create input element with inputted text as an input element for future editing
     const taskInputElement = document.createElement("input");
     taskInputElement.classList.add("text");
+    //attributes
     taskInputElement.type = "text";
     taskInputElement.value = task;
     taskInputElement.setAttribute("readonly", "readonly");
 
+    //set input as child of content div
     taskContentElement.appendChild(taskInputElement);
 
     //create actions div for edit and delete
@@ -184,17 +202,22 @@ function addTodoTask(task) {
     //delete button
     const taskDeleteElement = document.createElement("button");
     taskDeleteElement.classList.add("delete");
+    //checkmark icon for deleting task
     const icon = document.createElement("i");
     icon.className = "fa fa-check";
     taskDeleteElement.appendChild(icon);
 
+    //set edit and delete buttons as children of actions div
     taskActionsElement.appendChild(taskEditElement);
     taskActionsElement.appendChild(taskDeleteElement);
 
+    //set actinos div as child of task div
     taskElement.appendChild(taskActionsElement);
 
+    //set task div as child of list div
     listElement.appendChild(taskElement);
 
+    //reset input value
     input.value = "";
 
     taskEditElement.addEventListener("click", (e) => {
@@ -211,14 +234,10 @@ function addTodoTask(task) {
 
     taskDeleteElement.addEventListener("click", (e) => {
         listElement.removeChild(taskElement);
-    })
-
-    //create key for each task item and add to local storage
-    let key = "task" + taskNum;
-    addToLocalStorage(key, task);
-    taskNum++;
-
-    console.log('local storage length: ' + localStorage.length);
+        // localStorage.removeItem(key);
+        // console.log(key + 'removed from local storage');
+        console.log('removing task: ' + task);
+    });
 }
 
 function addToLocalStorage(key, task) {
@@ -227,7 +246,7 @@ function addToLocalStorage(key, task) {
         //set array to local storage
         localStorage.setItem(key, task);
 
-        console.log('added task to local storage: ' + key + ' : ' + task);
+        console.log( key + ' : ' + task + ' added to local storage');
     } else {
         console.log("local storage not supported");
     }
@@ -235,52 +254,26 @@ function addToLocalStorage(key, task) {
 
 //get todos from local storage on page load
 document.addEventListener('DOMContentLoaded', () => {
-    if (typeof(Storage) !== "undefined") {
-        for(let i = 1; i <= localStorage.length; i++) {
-            addTodoTask(localStorage.getItem("task" + i));
-        }
-    }else {
-        console.log("local storage not supported");
+    let colorPicker = document.getElementById('color-picker');
+    if(colorPicker.value === '#000000') {
+        colorPicker.value = '#194d33';
     }
+    document.body.style.backgroundColor = colorPicker.value;
+
+    // let i = 1;
+    // if (typeof(Storage) !== "undefined") {
+    //     while (localStorage.getItem("task" + i) !== 'null') {
+    //         let task = localStorage.getItem("task" + i);
+    //         addTodoTask(task);
+    //         i++;
+    //     }
+    //     console.log('last sessions background was: ' + localStorage.getItem('bgColor'));
+    //     document.body.style.backgroundColor = localStorage.getItem('bgColor');
+    // }else {
+    //     console.log("local storage not supported");
+    // }
 })
 
-//add todos to firestore db
-
-//get new task and 
-const inputForm = document.getElementById("new-task-form")
-let date = new Date();
-let time = date.getTime();
-let counter = time;
-
-inputForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const todos = inputForm['new-task-input'].value;
-    console.log(todos);
-
-    let id = counter += 1;
-    inputForm.reset();
-
-    //if user is logged in, add todos to firestore
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const docRef = doc(db, "users", user.uid);
-        setDoc(docRef, {
-          id: "_" + id,
-          todos
-        }).then(() => {
-          console.log('todo added');
-        }).catch((error) => {
-        //   console.log(error.message);
-        //   alert(error.message); //!!security issues, try real account next
-        })
-      } else {
-        console.log('user is not signed in to add todos');
-      }
-    })
-})
-
-   
 //begin with zero values in clock
 document.getElementById('hours').value = '00';
 document.getElementById('minutes').value = '00';
@@ -474,7 +467,7 @@ document.getElementById('menu-button').addEventListener('click', () => {
 });
 
 //open login on login button press
-document.getElementById('login/sign-up').addEventListener('click', () => {
+document.getElementById('register').addEventListener('click', () => {
     let loginMenu = document.getElementById("auth-container");
     flexToggleOpen(loginMenu);
     document.getElementById("menu").style.display = "none";
@@ -511,7 +504,6 @@ function flexToggleOpen(a) {
 //login menu close (X) button 
 document.querySelectorAll('.exit').forEach((button) => {
     button.addEventListener('click', () => {
-        console.log("clicked");
  
         let parentElement = button.closest(".todo-container");
         if(parentElement) {
