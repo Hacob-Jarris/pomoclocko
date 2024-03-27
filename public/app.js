@@ -400,11 +400,32 @@ async function addTodoTask(task) {
         }
     });
 
-    taskDeleteElement.addEventListener("click", (e) => {
+    //delete button event listener
+    taskDeleteElement.addEventListener("click", async(e) => {
         listElement.removeChild(taskElement);
-        // localStorage.removeItem(key);
-        // console.log(key + 'removed from local storage');
         console.log('removing task: ' + task);
+        //loop through  todo object, delete the task matching task variable, decrement the number  in the key of the tasks after it
+        const length = Object.keys(todoTaskList).length;
+
+        let decrement = false;
+        for (let i = 0; i < length; i++) {
+            const key = 'task' + i;
+            
+            if (decrement) {
+                //decrement the number in the key name after the task has been removed
+                let newKey = 'task' + (i-1);
+                todoTaskList[newKey] = todoTaskList[key];
+                delete todoTaskList[key];
+                await setDoc(todoDocRef, todoTaskList);
+
+            //delete the task being removed 
+            } else if (todoTaskList[key] === task) {
+                delete todoTaskList[key];
+                decrement = true;
+            }
+            
+        }
+    
     });
 }
 
