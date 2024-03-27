@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Pomodoro timer with todo list">
     <title>pomoClocko</title>
-
     <link rel="icon" type="image/x-icon" href="assets/images/mc-clock.ico">
-
     <link rel="stylesheet" href="styles.css">
-
     <script type="module" src="app.js"></script>
+    <script src="https://kit.fontawesome.com/81762fab05.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
+    
+    
     <header>
         <a href="index.html" id="title">pomodoro timer</a>
         <button id="menu-button">MENU</button>
@@ -23,7 +23,7 @@
             <div id="menu-input">
                 <span>study time: </span><input type="number" id="studyMin"><span> min.</span>
                 <span><br>break time: </span><input type="number" id="breakMin"><span> min.<br></span>
-                <p id="auth-status"></p>
+                <p id="auth-status"><p id="email-status"></p></p>
                 <button type="button" id="register" class="menu-content-button">login / sign up</button>
                 <button type="button" id="sign-out" class="menu-content-button">sign out</button>
                 <br>
@@ -61,20 +61,29 @@
 
         <form id="sign-up-form">
             <label for="email">Email:</label>
-            <input type="email" id="email" minlength="6">
+            <input type="email" id="email" minlength="6" placeholder="enter email">
             <label for="password">Password:</label>
-            <input type="password" id="password" minlength="6">
+            <div class="password-container">
+                <input type="password" class="password" id="password" minlength="6" placeholder = "new password">
+                <span class="toggle-eye"><i class="fa-regular fa-eye-slash"></i></span>
+            </div>
             <label for="password">Retype Password:</label>
-            <input type="password" id="password-check" minlength="6">
+            <div class="password-container">
+                <input type="password" class="password" id="password-check" minlength="6" placeholder = "retype password">
+                <span class="toggle-eye"><i class="fa-regular fa-eye-slash"></i></span>
+            </div>
             <button type="submit" class="form-submit">Submit</button>
 
         </form>
 
         <form id="login-form">
             <label for="email">Email:</label>
-            <input type="email" id="login-email" minlength="6">
+            <input type="email" id="login-email" minlength="6" placeholder="enter email">
             <label for="password">Password:</label>
-            <input type="password" id="login-password" minlength="6">
+            <div class="password-container">
+                <input type="password" class="password" id="login-password" minlength="6" placeholder = "enter password">
+                <span class="toggle-eye"><i class="fa-regular fa-eye-slash"></i></span>
+            </div>
             <button type="submit" class="form-submit">Submit</button>
         </form>
         <p>or:</p>
@@ -99,7 +108,9 @@
                 <button type="button" id="reset">reset</button>
             </div>
 
-            <button type="button" id="startpause"></button>
+            <button type="button" id="startpause">
+                <i class="fa-solid fa-play"></i><i class="fa-solid fa-pause"></i>
+            </button>
 
             <!--sound effects-->
             <audio id="click">

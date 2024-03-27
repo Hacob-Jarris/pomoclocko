@@ -1,7 +1,7 @@
 //importing needed functions from respective software dev kit (SDK)
 //import { service getter functions } from "CDN URL";
 import { initializeApp, getApps} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signOut, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 //firebase config from firebase console
@@ -27,17 +27,54 @@ const db = getFirestore(firebaseApp);
 onAuthStateChanged(auth, (user) => {
     if(user != null) {
         console.log('user logged in as ' + user.email);
-        document.getElementById('auth-status').innerHTML = `Logged in as ${user.email}`
+        document.getElementById('auth-status').innerHTML = `logged in as `;
+
+        document.getElementById('email-status').innerHTML = user.email;
 
         //hide sign in/ login button, show sign out button
         document.getElementById('register').style.display = 'none';
         document.getElementById('sign-out').style.display = 'inline-flex';
+
+        const uid = user.uid;
+        console.log('userid: ' + uid);
+        addOrUpdateUser(uid);
     } else { 
         console.log('not logged in');
-        document.getElementById('auth-status').innerHTML = `Not logged in`
-
+        document.getElementById('auth-status').innerHTML = `(not logged in)`
     }
 });
+
+//make user document in firstore db if it doesn't exist
+
+let todoDocRef;
+let userid;
+
+//make sure there is a user in firestore db
+
+async function addOrUpdateUser(uid) {
+    try {
+        userid = uid; 
+
+        //reference document named uid
+        const userDocRef = doc(db, 'users', uid);
+
+        //ensure existence of or create user document
+        await setDoc(userDocRef, {userid: uid});
+
+        //reference to todos subcollection within the userID document
+        const todoColRef = collection(userDocRef, 'todosSubCollection');
+
+        todoDocRef = doc(todoColRef, 'todosDocument');
+        //ensure existence of or create todos subcollection
+        await setDoc(todoDocRef, todoTaskList);
+       
+    } catch (error) {
+        console.log('error adding or updating user: ', error);
+    }
+}
+
+//hierarchy: db > users collection > userid document > todos subcollection
+
 
 //google auth
 let provider = new GoogleAuthProvider();
@@ -61,32 +98,38 @@ document.getElementById('google-login').addEventListener('click', () => {
     });
 });
 
-//register form
+//email sign up form event listener
 document.getElementById('sign-up-form').addEventListener('submit', (event) => {
-    //prevent page refresh
-    event.preventDefault();
+    event.preventDefault('signup');
+
+    validateForm('signup');
 
     //get email, password
     const email = document.getElementById('email').value;
-    console.log(email);
     const password = document.getElementById('password').value;
    
+    //make new user with the email and password
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             //singed in
             let user = userCredential.user;
+            console.log('user created: ' + user.email);
         })
         .catch((error) => {
             let errorCode = error.code;
             let errorMessage = error.message;
             console.log(errorCode, errorMessage);
-            alert(errorMessage);
+            console.log(user);
+
+            alertAuthErrorMessage(errorMessage);
         });
 });
 
-//email login form
+//email login form event listener
 document.getElementById('login-form').addEventListener('submit', function(e) {
     e.preventDefault();
+
+    validateForm('login');
 
     let email = document.getElementById('login-email').value;
     let password = document.getElementById('login-password').value;
@@ -94,14 +137,26 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             let user = userCredential.user;
+            console.log(user);
         })
         .catch((error) => {
             let errorCode = error.code;
             let errorMessage = error.message;
             console.log(errorCode, errorMessage);
-            alert(errorMessage);
+
+            alertAuthErrorMessage(errorMessage);
         });
  });
+
+ function alertAuthErrorMessage(message) {
+
+    let parts = message.split('auth/');
+    message = parts[1].replace(')', '');
+    message = message.replace('.', '');
+    message = message.replace('-', ' ');
+
+    alert(message);
+ }
 
 document.getElementById('login').addEventListener('click', () => {
     document.getElementById('login-form').style.display = 'flex';
@@ -128,24 +183,95 @@ document.getElementById('sign-out').addEventListener('click', () => {
     });
 });
 
+//check email and password format and add to valid/invalid classlists
+function validateForm(formType) {
+    
+    if (formType === 'login') {
+        let password = document.getElementById('login-password');
+        resetClassList(password);
+        let email = document.getElementById('login-email');
+        resetClassList(email);
+
+        if(!validateEmail(email.value)) {
+            email.classList.add('invalid');
+        } else {
+            email.classList.add('valid');
+        }
+
+        if(password.value.length < 6) {
+            password.classList.add('invalid')
+        } else {
+            password.classList.add('valid');
+        }
+    } else if (formType === 'signup') {
+        let password = document.getElementById('password'); 
+        resetClassList(password);
+
+        let passwordCheck = document.getElementById('password-check');
+        resetClassList(passwordCheck);
+
+        let email = document.getElementById('email');
+        resetClassList(email);
+        
+        if(!validateEmail(email.value)) {
+            email.classList.add('invalid');
+        } else {
+            email.classList.add('valid');
+        }
+        if(password.value !== passwordCheck.value || password.value < 6) {
+            password.classList.add('invalid');
+            passwordCheck.classList.add('invalid');
+            return;
+        } else if (password.value.length < 6) {
+            alert('password must be at least 6 characters');
+            return;
+        } else {
+            password.classList.add('valid');
+            passwordCheck.classList.add('valid');
+        }
+    }
+}
+
+function resetClassList(element) {
+    element.classList.remove('invalid');
+    element.classList.remove('valid');
+}
+
+//check email format
+function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+//password toggle
+document.querySelectorAll('.toggle-eye').forEach((toggleEye) => {
+    toggleEye.addEventListener('mousedown', (event) => {
+        console.log('wawa');
+        // Get the input element preceding the clicked element
+        const inputElement = toggleEye.previousElementSibling;
+
+        // Check if the input element exists and if its type is 'password'
+        if (inputElement && inputElement.type === 'password') {
+            inputElement.type = 'text';
+            toggleEye.innerHTML = '<i class="fa-regular fa-eye"></i>';
+        } else if (inputElement && inputElement.type === 'text') {
+            inputElement.type = 'password';
+            toggleEye.innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
+        }
+    });
+});
+
+
 //background color picker 
 let colorPicker = document.getElementById('color-picker');
 colorPicker.addEventListener('input', function () {
     document.body.style.backgroundColor = colorPicker.value;
 });
 
-// colorPicker.addEventListener('change', function () {
-//     console.log('adding color to local storage: ' + colorPicker.value);
-//     localStorage.setItem('bgColor', colorPicker.value);
-// })
-
 //todo list
 const form = document.getElementById("new-task-form");
 const input = document.getElementById("new-task-input");
 const listElement = document.getElementById("tasks");
-//storage length - bgColor key 
-// localStorage.clear();
-// console.log(localStorage.length);
 
 //event listener for task form submit
 form.addEventListener("submit", (e) => {
@@ -161,12 +287,25 @@ form.addEventListener("submit", (e) => {
     // addToLocalStorage(key, task);
 });
 
-function addTodoTask(task) {
+let todoTaskList = {};
+let taskNum =  0;
+
+async function addTodoTask(task) {
 
     if (task === "" || task === null) {
         console.log('not adding empty task');
         return;
     }
+
+    //add task to todoTaskList object with key task#
+    const taskKey = 'task' + taskNum;
+    todoTaskList[taskKey] = task;
+    taskNum++;
+
+    //update the todo list document with the new task
+    await setDoc(todoDocRef, todoTaskList);
+
+    console.log(todoTaskList);
 
     //create task div
     const taskElement = document.createElement("div");
@@ -240,38 +379,12 @@ function addTodoTask(task) {
     });
 }
 
-function addToLocalStorage(key, task) {
-    //check if local storage is supported
-    if (typeof(Storage) !== "undefined") {
-        //set array to local storage
-        localStorage.setItem(key, task);
-
-        console.log( key + ' : ' + task + ' added to local storage');
-    } else {
-        console.log("local storage not supported");
-    }
-}
-
-//get todos from local storage on page load
+//set color picker value to background color. saves on page refresh
 document.addEventListener('DOMContentLoaded', () => {
     let colorPicker = document.getElementById('color-picker');
-    if(colorPicker.value === '#000000') {
-        colorPicker.value = '#194d33';
-    }
+    //set default color picker value
+    if(colorPicker.value === '#000000') { colorPicker.value = '#194d33'; }
     document.body.style.backgroundColor = colorPicker.value;
-
-    // let i = 1;
-    // if (typeof(Storage) !== "undefined") {
-    //     while (localStorage.getItem("task" + i) !== 'null') {
-    //         let task = localStorage.getItem("task" + i);
-    //         addTodoTask(task);
-    //         i++;
-    //     }
-    //     console.log('last sessions background was: ' + localStorage.getItem('bgColor'));
-    //     document.body.style.backgroundColor = localStorage.getItem('bgColor');
-    // }else {
-    //     console.log("local storage not supported");
-    // }
 })
 
 //begin with zero values in clock
@@ -425,7 +538,11 @@ document.getElementById('startpause').addEventListener('click', () => {
     
     //change to pressed button image for .3 seconds
     document.getElementById('background-image').src = 'assets/images/pressed.png';
+    document.getElementById('startpause').style.color = 'transparent';
+
     setTimeout(function() {
+        document.getElementById('startpause').style.color = 'white';
+
         document.getElementById('background-image').src = "assets/images/clock2.png";
     }, 1300);
 

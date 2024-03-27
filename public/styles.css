@@ -30,7 +30,7 @@ body {
   min-height: 100%;
   width: 100%;
   color: white;
-  background-color: var(--grey);
+  background-color: #194d33;
   margin: 0;
   box-sizing: border-box;
   font-family: "lemon-milk";
@@ -40,7 +40,6 @@ body {
 }
 
 input {
-  caret-color: white;
   font-weight: 500;
   font-family: "stevie-sans";
 }
@@ -54,13 +53,48 @@ input {
   opacity: 1;
   background-color: var(--black);
   border: 1px solid white;
-  width: max-content;
+  width: 230px;
   padding-bottom: 0;
   border-radius: 1em;
   display: none;
   flex-direction: column;
   padding: 25px;
   font-family: "stevie-sans";
+}
+
+#auth-status {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+#email-status {
+  margin: 0;
+  font-size: 0.8em;
+}
+
+form label {
+  margin-top: 10px;
+}
+
+form input {
+  margin: 5px 0;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 3px;
+  height: 1.3rem;
+}
+
+.password {
+  width: 80%;
+  margin-right: 5px;
+}
+
+.password-container {
+  position: relative;
+}
+
+#auth-container p {
+  margin: 0;
 }
 
 #login-form, #sign-up-form {
@@ -76,6 +110,10 @@ input {
 #form-buttons {
   display: flex;
   justify-content: center;
+}
+
+button {
+  cursor: pointer;
 }
 
 #login, #sign-up {
@@ -95,11 +133,6 @@ input {
   transition: .3s;
 }
 
-#auth-container *:not(input, #google-login, .form-submit) {
-  margin-top: 10px;
-  margin-bottom: 2px;
-}
-
 .exit {
   position: absolute;
   z-index: 10;
@@ -107,7 +140,7 @@ input {
   border: transparent;
   color: white;
   right: 5px;
-  top: 0;
+  top: 18px;
   transform: translate(0, -10px);
   cursor: pointer;
 }
@@ -144,11 +177,10 @@ input {
 #google-login {
   position: relative;
   z-index: 1;
-  transition: background-color 0.3s, box-shadow 0.3s;
-  padding: 12px 16px 12px 42px;
+  padding: 12px 0 12px 15px;
   border: none;
   border-radius: 3px;
-  color: var(--black);
+  color: black;
   font-size: .8rem;
   font-weight: 500;
   background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
@@ -157,6 +189,22 @@ input {
   background-position: 12px 11px;
   cursor: pointer;
   margin-top: 5px;
+}
+
+#google-login:hover {
+  background-color: rgba(255, 255, 255, 0.815);
+}
+
+.toggle-eye {
+  cursor: pointer;
+}
+
+.invalid {
+  border: 2px solid red;
+}
+
+.valid {
+  border: 2px solid green;
 }
 
 /*logo, menu*/
@@ -192,7 +240,7 @@ header {
   background-color: var(--black);
   padding: 10px;
   border-radius: 15px;
-  width: 150px;
+  width: 190px;
   text-align: center;
 }
 
@@ -440,13 +488,13 @@ main {
 #startpause {
   color: white;
   position: absolute;
-  font-size: 1em;
+  font-size: 10px;
   border: transparent;
   background: transparent;
   cursor: pointer;
   width: 60px;
   height: 13px;
-  transform: translate(132px, -150px);
+  transform: translate(132px, -151px);
 }
 
 @media (max-width: 700px) {
