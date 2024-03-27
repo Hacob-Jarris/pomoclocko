@@ -1,7 +1,7 @@
 //importing needed functions from respective software dev kit (SDK)
 //import { service getter functions } from "CDN URL";
 import { initializeApp, getApps} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signOut, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 //firebase config from firebase console
@@ -23,6 +23,8 @@ const firebaseApp = initializeApp(config);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
+let uid;
+
 //get auth status of user
 onAuthStateChanged(auth, (user) => {
     if(user != null) {
@@ -35,9 +37,11 @@ onAuthStateChanged(auth, (user) => {
         document.getElementById('register').style.display = 'none';
         document.getElementById('sign-out').style.display = 'inline-flex';
 
-        const uid = user.uid;
-        console.log('userid: ' + uid);
-        addOrUpdateUser(uid);
+        uid = user.uid;
+        console.log('uid: ' + uid);
+        addOrUpdateUser();
+
+
     } else { 
         console.log('not logged in');
         document.getElementById('auth-status').innerHTML = `(not logged in)`
@@ -46,35 +50,52 @@ onAuthStateChanged(auth, (user) => {
 
 //make user document in firstore db if it doesn't exist
 
+//global reference to add todos to db from addTodoTask()
 let todoDocRef;
-let userid;
 
 //make sure there is a user in firestore db
 
-async function addOrUpdateUser(uid) {
+async function addOrUpdateUser() {
     try {
-        userid = uid; 
-
         //reference document named uid
         const userDocRef = doc(db, 'users', uid);
 
-        //ensure existence of or create user document
-        await setDoc(userDocRef, {userid: uid});
+        const userDocSnapshot = await getDoc(userDocRef);
 
-        //reference to todos subcollection within the userID document
+        //make a new specefic user document inside users collection if there isn't one
+        if (userDocSnapshot.exists()) {
+            console.log('user document exists in db');
+        } else {
+            //create user document with setDoc()
+            await setDoc(userDocRef, {uid: uid});
+        }
+
+        //reference to todos subcollection within the specific user document
         const todoColRef = collection(userDocRef, 'todosSubCollection');
 
+        //reference to todo document inside todos sub collection
         todoDocRef = doc(todoColRef, 'todosDocument');
-        //ensure existence of or create todos subcollection
-        await setDoc(todoDocRef, todoTaskList);
+
+        //try to fetch document from firestore
+        const todoDocSnapshot = await getDoc(todoDocRef);
+
+        //if the document exists and contains data, get data
+        if (todoDocSnapshot.exists()) {
+            const todoDocData = todoDocSnapshot.data();
+            console.log('todo doc data: ', todoDocData);
+
+            addTodosFromFirestore(todoDocData);
+        //if the document doesn't exist or is empty, initialize it with setDoc()
+        } else {
+            console.log('creating new todo document');
+            //ensure existence of or create todos subcollection
+            await setDoc(todoDocRef, todoTaskList);
+        }
        
     } catch (error) {
         console.log('error adding or updating user: ', error);
     }
 }
-
-//hierarchy: db > users collection > userid document > todos subcollection
-
 
 //google auth
 let provider = new GoogleAuthProvider();
@@ -243,7 +264,7 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-//password toggle
+//password view toggle
 document.querySelectorAll('.toggle-eye').forEach((toggleEye) => {
     toggleEye.addEventListener('mousedown', (event) => {
         console.log('wawa');
@@ -284,8 +305,16 @@ form.addEventListener("submit", (e) => {
     //add task to todo list
     addTodoTask(task);
 
-    // addToLocalStorage(key, task);
 });
+
+function addTodosFromFirestore(todoObject) {
+    const length = Object.keys(todoObject).length;
+
+    for (let i = 0; i < length; i++) {
+        const key = 'task' + i;
+        addTodoTask(todoObject[key]);
+    }
+}
 
 let todoTaskList = {};
 let taskNum =  0;
@@ -384,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let colorPicker = document.getElementById('color-picker');
     //set default color picker value
     if(colorPicker.value === '#000000') { colorPicker.value = '#194d33'; }
-    document.body.style.backgroundColor = colorPicker.value;
+    document.body.style.backgroundColor = colorPicker.value;    
 })
 
 //begin with zero values in clock
@@ -625,7 +654,6 @@ document.querySelectorAll('.exit').forEach((button) => {
         let parentElement = button.closest(".todo-container");
         if(parentElement) {
             button.parentElement.style.display = "none";
-            console.log(";lkasdjf;lkasjd;lfkjasd;lkjas");
         } else {
             document.getElementById("auth-container").style.display = "none";
             document.getElementById('login-form').style.display = "none";
