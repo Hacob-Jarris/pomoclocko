@@ -1,8 +1,9 @@
-<h1>pomoclocko</h1>
+# [PomoClocko](https://pomoclocko.web.app)
 
-<p>Simple pomodoro timer with digital alarm clock theme. Working on todo database</p>
-<br>https://pomoclocko.web.app
-<hr>
+Simple pomodoro work/study timer with digital clock theme. Uses Firebase for auth and todo database. Try it here: [pomoclocko.web.app](https://pomoclocko.web.app)
 
-![image](https://github.com/bocsir/pomoclocko/assets/77936915/fdc3e828-973a-47f8-9926-836cb799eb33)
+![image](https://github.com/bocsir/pomoclocko/assets/77936915/ff54c9ed-e9e9-4db9-aa7d-a0d010cf282b)
+
+
+
 
