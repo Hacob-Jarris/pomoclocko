@@ -15,6 +15,11 @@
   src:url("assets/fonts/Stevie-Sans.ttf")format('truetype');
 }
 
+@font-face {
+  font-family: "nabla";
+  src:url("assets/fonts/Nabla-Regular-VariableFont_EDPT\,EHLT.ttf")format('truetype');
+}
+
 :root {
   --black: rgba(0, 0, 0, .83);
   --brown: rgb(105, 66, 47);
@@ -94,7 +99,10 @@ form input {
 }
 
 #auth-container p {
-  margin: 0;
+  margin-top: 15px;
+  margin-bottom: 0;
+  font-size: .8rem;
+  text-align: center;
 }
 
 #login-form, #sign-up-form {
@@ -110,6 +118,8 @@ form input {
 #form-buttons {
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
 }
 
 button {
@@ -120,11 +130,16 @@ button {
   font-family: "lemon-milk";
   background: transparent;
   color: white;
-  border: 1px solid white;
+  border: transparent;
   border-radius: .3em;
   padding: .4em;
   margin: 0 .5em;
   cursor: pointer;
+  font-size: 1.2rem;
+}
+
+#slash {
+  position: relative;
 }
 
 #login:hover, #sign-up:hover {
@@ -191,6 +206,12 @@ button {
   margin-top: 5px;
 }
 
+hr {
+  height: 1px;
+  background-color: white;
+  border: none;
+}
+
 #google-login:hover {
   background-color: rgba(255, 255, 255, 0.815);
 }
@@ -209,13 +230,14 @@ button {
 
 /*logo, menu*/
 #title {
+  font-family: 'nabla';
   position: absolute;
   z-index: 1;
   cursor: pointer;
-  color: white;
   text-decoration: none;
   display: inline-block;
-  font-size: 2rem;
+  font-size: 3rem;
+  letter-spacing: 2px;
   margin-left: 30px;
   transition: .4s;
 }
@@ -234,14 +256,15 @@ header {
   display: none;
   position: absolute;
   z-index: 1;
-  top: 80px;
-  right: 35px;
+  top: 145px;
+  right: 55px;
   font-size: 0.7em;
   background-color: var(--black);
   padding: 10px;
   border-radius: 15px;
   width: 190px;
   text-align: center;
+  scale: 1.3;
 }
 
 #menu-button {
@@ -278,7 +301,7 @@ header {
   background-color: transparent;
   color: white;
   font-family: "lemon-milk";
-  border: 1px solid white;
+  border: transparent;
   border-radius: 4px;
   margin-top: 10px;
   padding: 5px;
@@ -299,6 +322,7 @@ header {
   width: 35px;
   padding: 0;
   margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 #help-text {
@@ -519,12 +543,13 @@ main {
     scale: .8;
   }
 }
+
 @media (max-width: 530px) {
   #title {
-    font-size: 1rem;
+    font-size: 2.2rem;
   }
   #clock {
-    transform: scale(0.5);
+    transform: scale(0.55);
   }
 
   #startpause {
@@ -535,6 +560,7 @@ main {
     height: 39px;
   }
 }
+
 @media (max-width: 395px) {
   #clock-buttons {
     display: inline-flex;

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Pomodoro timer with todo list">
-    <title>pomoClocko</title>
+    <title>PomoClocko</title>
     <link rel="icon" type="image/x-icon" href="assets/images/mc-clock.ico">
     <link rel="stylesheet" href="styles.css">
     <script type="module" src="app.js"></script>
@@ -17,18 +17,21 @@
     
     
     <header>
-        <a href="index.html" id="title">pomodoro timer</a>
+        <a href="index.html" id="title">PomoClocko!</a>
         <button id="menu-button">MENU</button>
         <div id="menu">
             <div id="menu-input">
                 <span>study time: </span><input type="number" id="studyMin"><span> min.</span>
                 <span><br>break time: </span><input type="number" id="breakMin"><span> min.<br></span>
+                <hr>
                 <p id="auth-status"><p id="email-status"></p></p>
+                <hr>
                 <button type="button" id="register" class="menu-content-button">login / sign up</button>
                 <button type="button" id="sign-out" class="menu-content-button">sign out</button>
                 <br>
                 <button type="button" id="todo-list" class="menu-content-button">to-do</button> <br>
                 <button type="button" id="help-button" class="menu-content-button">help</button> <br><br>
+                <hr><br>
                 <label for="color-picker">background color:</label><br>
                 <input type="color" id="color-picker" name="color-picker">
             </div>
@@ -48,6 +51,7 @@
     <section id="auth-container">
         <div id="form-buttons">
             <button id="login" class="button">login</button>
+            <span id="slash"> / </span>
             <button id="sign-up" class="button">sign up</button>
         </div>
 
