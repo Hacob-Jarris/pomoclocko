@@ -45,6 +45,7 @@ onAuthStateChanged(auth, (user) => {
     } else { 
         console.log('not logged in');
         document.getElementById('auth-status').innerHTML = `(not logged in)`
+        document.getElementById('email-status').innerHTML = '';
     }
 });
 
@@ -64,7 +65,6 @@ async function addOrUpdateUser() {
 
         //make a new specefic user document inside users collection if there isn't one
         if (userDocSnapshot.exists()) {
-            console.log('user document exists in db');
         } else {
             //create user document with setDoc()
             await setDoc(userDocRef, {uid: uid});
@@ -82,12 +82,10 @@ async function addOrUpdateUser() {
         //if the document exists and contains data, get data
         if (todoDocSnapshot.exists()) {
             const todoDocData = todoDocSnapshot.data();
-            console.log('todo doc data: ', todoDocData);
 
             addTodosFromFirestore(todoDocData);
         //if the document doesn't exist or is empty, initialize it with setDoc()
         } else {
-            console.log('creating new todo document');
             //ensure existence of or create todos subcollection
             await setDoc(todoDocRef, todoTaskList);
         }
@@ -108,9 +106,7 @@ document.getElementById('google-login').addEventListener('click', () => {
         if (credential) {
             const user = result.user;
             const token = credential.accessToken;
-        } else {
-            console.log("No credential available in the result.");
-        }
+        } 
     }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -195,7 +191,6 @@ document.getElementById('sign-up').addEventListener('click', () => {
 
 document.getElementById('sign-out').addEventListener('click', () => {
     signOut(auth).then(() => {
-        console.log('signed out user');
         document.getElementById('register').style.display = 'inline-flex';
         document.getElementById('sign-out').style.display = 'none';
 
@@ -267,7 +262,6 @@ function validateEmail(email) {
 //password view toggle
 document.querySelectorAll('.toggle-eye').forEach((toggleEye) => {
     toggleEye.addEventListener('mousedown', (event) => {
-        console.log('wawa');
         // Get the input element preceding the clicked element
         const inputElement = toggleEye.previousElementSibling;
 
@@ -300,7 +294,6 @@ form.addEventListener("submit", (e) => {
 
     //get task
     const task = input.value;
-    console.log('task entered: ' + task);
 
     //add task to todo list
     addTodoTask(task);
@@ -330,11 +323,8 @@ async function addTodoTask(task) {
     const taskKey = 'task' + taskNum;
     todoTaskList[taskKey] = task;
     taskNum++;
-
     //update the todo list document with the new task
     await setDoc(todoDocRef, todoTaskList);
-
-    console.log(todoTaskList);
 
     //create task div
     const taskElement = document.createElement("div");
@@ -403,7 +393,6 @@ async function addTodoTask(task) {
     //delete button event listener
     taskDeleteElement.addEventListener("click", async(e) => {
         listElement.removeChild(taskElement);
-        console.log('removing task: ' + task);
         //loop through  todo object, delete the task matching task variable, decrement the number  in the key of the tasks after it
         const length = Object.keys(todoTaskList).length;
 
@@ -426,6 +415,7 @@ async function addTodoTask(task) {
             
         }
     
+        await setDoc(todoDocRef, todoTaskList);
     });
 }
 
@@ -473,9 +463,7 @@ function startCountdown() {
 
     //get current total seconds
     let totalSeconds = getSeconds();
-    console.log(totalSeconds);
 
-    //????
     let first = true;
     
     if (totalSeconds != 0) {
@@ -495,7 +483,6 @@ function startCountdown() {
             
             //cancel countdown with clearInterval()
             if (pause) { 
-                console.log("pause"); 
                 clearInterval(countdown); 
             }
             
@@ -574,7 +561,6 @@ document.getElementById('startpause').addEventListener('click', () => {
     } else if (studying){
         studying = false;
         initialWorkingSeconds = getSeconds();
-        console.log(initialWorkingSeconds);
         if (pause) { pause = false; }
     } else {
         if (!pause && functionRunning) {
