@@ -87,7 +87,11 @@ async function addOrUpdateUser() {
         //if the document doesn't exist or is empty, initialize it with setDoc()
         } else {
             //ensure existence of or create todos subcollection
-            await setDoc(todoDocRef, todoTaskList);
+            try {
+                await setDoc(todoDocRef, todoTaskList);
+            } catch (error) {
+                console.error('Error writing document: ', error);
+            }        
         }
        
     } catch (error) {
@@ -324,8 +328,12 @@ async function addTodoTask(task) {
     todoTaskList[taskKey] = task;
     taskNum++;
     //update the todo list document with the new task
-    await setDoc(todoDocRef, todoTaskList);
-
+    try {
+        await setDoc(todoDocRef, todoTaskList);
+    } catch (error) {
+        console.error('Error writing document: ', error);
+    }
+    
     //create task div
     const taskElement = document.createElement("div");
     taskElement.classList.add("task");
@@ -405,8 +413,11 @@ async function addTodoTask(task) {
                 let newKey = 'task' + (i-1);
                 todoTaskList[newKey] = todoTaskList[key];
                 delete todoTaskList[key];
-                await setDoc(todoDocRef, todoTaskList);
-
+                try {
+                    await setDoc(todoDocRef, todoTaskList);
+                } catch (error) {
+                    console.error('Error writing document: ', error);
+                }
             //delete the task being removed 
             } else if (todoTaskList[key] === task) {
                 delete todoTaskList[key];
@@ -415,8 +426,11 @@ async function addTodoTask(task) {
             
         }
     
+try {
         await setDoc(todoDocRef, todoTaskList);
-    });
+    } catch (error) {
+        console.error('Error writing document: ', error);
+    }    });
 }
 
 //set color picker value to background color. saves on page refresh
